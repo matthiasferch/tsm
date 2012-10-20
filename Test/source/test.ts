@@ -23,6 +23,6 @@ window.onload = () => {
 
     var q1 = v4.toQuat();
 
-    console.log('vec4(' + v4.xyz + ').toQuat() = quat(' + q1.xyzw + ')');
+    console.log('vec3(' + v4.xyz + ').toQuat() = quat(' + q1.xyzw + ')');
 
 };
