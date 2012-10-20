@@ -10,8 +10,11 @@ What's special about TSM?
 
 - TSM makes use of JavaScript's new property definitions to enable GLSL-style swizzle operators:
 
-        myVector.xy = [0, 1]
-        myQuaternion.w = 1.0
+        var v1 = new TSM.vec2();
+        var q1 = new TSM.quat();
+
+        v1.xy = [0, 1];
+        q1.w = 1.0;
 
 - TSM offers both non-static and static methods for many operations:
 
