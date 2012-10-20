@@ -23,7 +23,7 @@
     <Content Include="index.html" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="test.ts" />
+    <TypeScriptCompile Include="source\test.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
