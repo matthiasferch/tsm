@@ -1,12 +1,12 @@
 TSM - A TypeScript vector and matrix math library
 =================================================
 
-TSM is a a collection of vector and matrix classes written in Microsoft's new JavaScript superset 'TypeScript'. It compiles to plain JavaScript.
+TSM is a a collection of vector and matrix classes written in Microsoft's new JavaScript superset *TypeScript*. It compiles to plain JavaScript.
 
 What's special about TSM?
 -------------------------
 
-- TSM makes use of TypeScript's type annotations to reduce the number of possible bugs and has been used extensively in the development of a large-scale WebGL applications (more information about that project will be published soon).
+- TSM makes use of TypeScript's type annotations to reduce the number of possible bugs and has been used extensively in the development of a large-scale WebGL application (more information about that project will be published soon).
 
 - TSM makes use of JavaScript's new property definitions to enable GLSL-style element access:
 
@@ -33,9 +33,9 @@ If you do not want to or cannot use Visual Studio, you can use the command line 
 
     tsc --target "ES5" --out "tsm-[x.y].js" -sourcemap -declarations tsm.ts
 
-The *target* parameter is necessary for the element access property definitions (.xyz, etc.) to work.
+The *target* parameter is necessary for the property definitions (.xyz, etc.) to work.
 
-After successful compilation, four files will have been created:
+After successful compilation, four files will be created:
 
 - *tsm-[x.y].js:*
 The compiled JavaScript source, readable
@@ -66,7 +66,7 @@ You can use a reference comment to the declarations file or a module import to g
 
 If you want to use the generated JavaScript instead, simply load the compiled .js or .min.js file by use of a script tag:
 
-    <script src="../TSM/tsm-[x.y].js"></script>
+    <script src="/path/to/TSM/tsm-[x.y].js"></script>
 
 
 Testing TSM
@@ -76,7 +76,7 @@ The solution contains a test application. Open TSM/Test/index.html in a browser 
 
     vec2(1,2,3) + vec2(4,5,6) = vec2(5,7,9)
 
-    Perspective projection, 45° FOV:
+    Perspective projection, 45Â° FOV:
     mat4([
        2.4142136573791504, 0, 0, 0
        0, 2.4142136573791504, 0, 0
@@ -92,4 +92,4 @@ If instead you receive an error message along the liens of "TSM is not defined",
 Documentation
 -------------
 
-Unfortunately, there is no way yet to automatically generate documentation from TypeScript sources. I'll see what I can do. Please refer to the declarations file.
+Unfortunately, there is no way yet to automatically generate documentation from TypeScript sources. I'll see what I can do. Please refer to the declarations file in the meantime.
