@@ -8,7 +8,7 @@ What's special about TSM?
 
 - TSM makes use of TypeScript's type annotations to reduce the number of possible bugs and has been used extensively in the development of a large-scale WebGL application (more information about that project will be published soon).
 
-- TSM makes use of JavaScript's new property definitions to enable GLSL-style element access:
+- TSM makes use of JavaScript's new property definitions to enable GLSL-style swizzle operators:
 
         myVector.xy = [0, 1]
         myQuaternion.w = 1.0
@@ -93,3 +93,43 @@ Documentation
 -------------
 
 Unfortunately, there is no way yet to automatically generate documentation from TypeScript sources. I'll see what I can do. Please refer to the declarations file in the meantime.
+
+###General design notes
+
+Swizzle operators return numeric arrays, not vector instances:
+
+    var v = new TSM.vec4([1, 2, 3, 4]);
+    var n = v.xyz; // n = [1, 2, 3]
+
+If, instead, you want to create a new instance of a vector or a matrix, use the copy() method:
+
+    var v1 = new TSM.vec4([1, 2, 3, 4]);
+    var v2 = v1.copy();
+
+You can also initialize a new vector with the values of another:
+
+    var v1 = new TSM.vec4([1, 2, 3, 4);
+    var v2 = new TSM.vec4(v1.xyzw);
+
+Or copy the values of one vector to another using the swizzle operators:
+
+    v1.xyzw = v2.xyzw;
+
+The four basic arithmetic operations can be performed on instances or using static methods:
+
+        var v1 = new TSM.vec4([1, 2, 3, 4]);
+        var v2 = new TSM.vec4([5, 6, 7, 8]);
+
+        var v3 = TSM.vec4.product(v1, v2); // returns a new vec4 instance
+
+        v1.multiply(v2); // writes the result of the multiplication into v1
+        v2.multiply(v1); // writes the result of the multiplication into v2
+
+The reason for all of these different ways of doing the same thing is that object allocation in JavaScript is slow and dynamic allocation shoud therefore be reduced to a minimum. For this reason, static methods offer an optional destination parameter:
+
+    var v3 = TSM.vec3.cross(v1, v2) // allocates a new instance of vec3
+
+is the same as:
+
+    var v3 = new TSM.vec3();
+    TSM.vec3.cross(v1, v2, v3) // writes into the existing instance
