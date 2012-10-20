@@ -87,7 +87,7 @@ The solution contains a test application. Open *TSM/Test/index.html* in a browse
        0, 0, -2.0202019214630127, 0
     ]);
 
-    vec4(90,0,0).toQuat() = quat(0.8509035110473633,0,0,0.5253219604492188) 
+    vec3(90,0,0).toQuat() = quat(0.8509035110473633,0,0,0.5253219604492188) 
 
 If instead you receive an error message along the lines of "TSM is not defined", please make sure that your script tags are properly set up.
 
