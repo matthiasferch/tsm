@@ -36,7 +36,7 @@ If you do not want to or cannot use Visual Studio, you can use the command line 
 
     tsc --target "ES5" --out "tsm-[x.y].js" -sourcemap -declarations tsm.ts
 
-The *target* parameter is necessary for the property definitions (.xyz, etc.) to work.
+The *target* parameter is necessary for the swizzle operators (.xyz, etc.) to work.
 
 After successful compilation, four files will be created:
 
