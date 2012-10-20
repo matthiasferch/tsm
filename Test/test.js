@@ -26,6 +26,5 @@ window.onload = function () {
     ]);
     var q1 = v4.toQuat();
     console.log('vec4(' + v4.xyz + ').toQuat() = quat(' + q1.xyzw + ')');
-    document.appendChild(document.createTextNode("Some random text."));
 };
 //@ sourceMappingURL=test.js.map
