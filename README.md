@@ -30,7 +30,7 @@ What's special about TSM?
 Building TSM
 ------------
 
-This project includes a solution file for Visual Studio 2012. It also works with the free Express version of Visual Studio 2012 for the Web, which can be downloaded for free from the Microsoft website. Please install the TypeScript plugin for Visual Studio 2012 to get syntax highlighting and IntelliSense support: http://www.microsoft.com/en-us/download/details.aspx?id=34790.
+This project includes a solution file for *Visual Studio 2012*. It also works with the free Express version of *Visual Studio 2012 for the Web*, which can be downloaded for free from the Microsoft website. Please install the *TypeScript plugin for Visual Studio 2012* to get syntax highlighting and IntelliSense support: http://www.microsoft.com/en-us/download/details.aspx?id=34790.
 
 If you do not want to or cannot use Visual Studio, you can use the command line tool which comes with the plugin instead:
 
