@@ -118,15 +118,15 @@ Or copy the values of one vector to another using the swizzle operators:
 
     v1.xyzw = v2.xyzw;
 
-The four basic arithmetic operations can be performed on instances or using static methods:
+The four basic arithmetic operations can be performed on vector instances or using static methods:
 
-        var v1 = new TSM.vec4([1, 2, 3, 4]);
-        var v2 = new TSM.vec4([5, 6, 7, 8]);
+    var v1 = new TSM.vec4([1, 2, 3, 4]);
+    var v2 = new TSM.vec4([5, 6, 7, 8]);
 
-        var v3 = TSM.vec4.product(v1, v2); // returns a new vec4 instance
+    var v3 = TSM.vec4.product(v1, v2); // returns a new vec4 instance
 
-        v1.multiply(v2); // writes the result of the multiplication into v1
-        v2.multiply(v1); // writes the result of the multiplication into v2
+    v1.multiply(v2); // writes the result of the multiplication into v1
+    v2.multiply(v1); // writes the result of the multiplication into v2
 
 The reason for all of these different ways of doing the same thing is that object allocation in JavaScript is slow and dynamic allocation shoud therefore be reduced to a minimum. For this reason, static methods offer an optional destination parameter:
 
@@ -136,3 +136,12 @@ is the same as:
 
     var v3 = new TSM.vec3();
     TSM.vec3.cross(v1, v2, v3) // writes into the existing instance
+
+Matrices do not have swizzle operators. Instead, they provide the all(), row() and col() methods:
+
+    var m = new mat2([1, 2, 3, 4]);
+
+    var all = m.all();  // [1, 2, 3, 4]  
+    var row = m.row(0); // [1, 2]
+    var col = m.col(0); // [1, 3] 
+
