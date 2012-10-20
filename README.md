@@ -75,7 +75,7 @@ If you want to use the generated JavaScript instead, simply load the compiled .j
 Testing TSM
 -----------
 
-The solution contains a test application. Open TSM/Test/index.html in a browser and bring up the console. You should see the following output:
+The solution contains a test application. Open *TSM/Test/index.html* in a browser and bring up the console. You should see the following output:
 
     vec2(1,2,3) + vec2(4,5,6) = vec2(5,7,9)
 
