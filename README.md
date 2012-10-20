@@ -24,7 +24,7 @@ What's special about TSM?
         var v3 = TSM.vec3.sum(v1, v2);
         var v4 = v1.copy().add(v2);
 
-        console.log(v3.equals(v4)) // output: "true"
+        console.log(v3.equals(v4)); // output: "true"
 
 
 Building TSM
