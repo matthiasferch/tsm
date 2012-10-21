@@ -1,7 +1,7 @@
 TSM - A TypeScript vector and matrix math library
 =================================================
 
-TSM is a a collection of vector and matrix classes written in Microsoft's new JavaScript superset *TypeScript*. It compiles to plain JavaScript.
+TSM is a a collection of vector and matrix classes written in Microsoft's new JavaScript superset *TypeScript*, which compiles to plain JavaScript. The library's design is influenced by both [gl-matrix](https://github.com/toji/gl-matrix) and [GLM](https://github.com/g-truc/glm). 
 
 What's special about TSM?
 -------------------------
