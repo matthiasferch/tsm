@@ -95,9 +95,9 @@ module TSM {
             return this;
         }
 
-        equals(vector: vec2): bool {
+        equals(vector: vec2, threshold = EPSILON): bool {
             for (var i = 0; i < 2; i++) {
-                if (Math.abs(this.values[i] - vector.at(i)) > EPSILON)
+                if (Math.abs(this.values[i] - vector.at(i)) > threshold)
                     return false;
             }
 

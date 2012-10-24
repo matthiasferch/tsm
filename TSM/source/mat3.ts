@@ -98,9 +98,9 @@ module TSM {
             ];
         }
 
-        equals(matrix: mat3): bool {
+        equals(matrix: mat3, threshold = EPSILON): bool {
             for (var i = 0; i < 9; i++) {
-                if (Math.abs(this.values[i] - matrix.at(i)) > EPSILON)
+                if (Math.abs(this.values[i] - matrix.at(i)) > threshold)
                     return false;
             }
 

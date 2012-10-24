@@ -161,9 +161,9 @@ module TSM {
             return Math.asin(2.0 * (this.x * this.z - this.w * this.y));
         }
 
-        equals(vector: vec4): bool {
+        equals(vector: quat, threshold = EPSILON): bool {
             for (var i = 0; i < 4; i++) {
-                if (Math.abs(this.values[i] - vector.at(i)) > EPSILON)
+                if (Math.abs(this.values[i] - vector.at(i)) > threshold)
                     return false;
             }
 
