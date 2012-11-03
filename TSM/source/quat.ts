@@ -194,7 +194,7 @@ module TSM {
         }
 
         inverse(): quat {
-            var dot = dot(this, this);
+            var dot = quat.dot(this, this);
 
             if (!dot) {
                 this.xyzw = [0, 0, 0, 0];
