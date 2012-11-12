@@ -484,90 +484,35 @@ module TSM {
             ]);
         }
 
-        static lookAt(eye: vec3, center: vec3, up: vec3): mat4 {
-            var x0, x1, x2, y0, y1, y2, z0, z1, z2;
-
-            var eyex = eye.x,
-                eyey = eye.y,
-                eyez = eye.z;
-
-            var upx = up.x,
-                upy = up.y,
-                upz = up.z;
-
-            var centerx = center.x,
-                centery = center.y,
-                centerz = center.z;
-
-            if (eyex === centerx && eyey === centery && eyez === centerz) {
+        static lookAt(position: vec3, target: vec3, up: vec3 = vec3.up): mat4 {
+            if (position.equals(target)) {
                 return this.setIdentity();
             }
 
-            z0 = eyex - centerx;
-            z1 = eyey - centery;
-            z2 = eyez - centerz;
+            var z = vec3.difference(position, target).normalize();
 
-            var length = 1 / Math.sqrt(z0 * z0 + z1 * z1 + z2 * z2);
-
-            z0 *= length;
-            z1 *= length;
-            z2 *= length;
-
-            x0 = upy * z2 - upz * z1;
-            x1 = upz * z0 - upx * z2;
-            x2 = upx * z1 - upy * z0;
-
-            length = Math.sqrt(x0 * x0 + x1 * x1 + x2 * x2);
-
-            if (!length) {
-                x0 = 0;
-                x1 = 0;
-                x2 = 0;
-            } else {
-                length = 1 / length;
-
-                x0 *= length;
-                x1 *= length;
-                x2 *= length;
-            }
-
-            y0 = z1 * x2 - z2 * x1;
-            y1 = z2 * x0 - z0 * x2;
-            y2 = z0 * x1 - z1 * x0;
-
-            length = Math.sqrt(y0 * y0 + y1 * y1 + y2 * y2);
-
-            if (!length) {
-                y0 = 0;
-                y1 = 0;
-                y2 = 0;
-            } else {
-                length = 1 / length;
-
-                y0 *= length;
-                y1 *= length;
-                y2 *= length;
-            }
+            var x = vec3.cross(up, z).normalize();
+            var y = vec3.cross(z, x).normalize();
 
             return new mat4([
-                x0,
-                y0,
-                z0,
+                x.x,
+                y.x,
+                z.x,
                 0,
 
-                x1,
-                y1,
-                z1,
+                x.y,
+                y.y,
+                z.y,
                 0,
 
-                x2,
-                y2,
-                z2,
+                x.z,
+                y.z,
+                z.z,
                 0,
 
-                -(x0 * eyex + x1 * eyey + x2 * eyez),
-                -(y0 * eyex + y1 * eyey + y2 * eyez),
-                -(z0 * eyex + z1 * eyey + z2 * eyez),
+                -vec3.dot(x, position),
+                -vec3.dot(y, position),
+                -vec3.dot(z, position),
                 1
             ]);
         }
