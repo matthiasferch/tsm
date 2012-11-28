@@ -60,7 +60,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="BeforeBuild">
-    <Exec Command="&quot;$(PROGRAMFILES)\Microsoft SDKs\TypeScript\0.8.0.0\tsc&quot; --target &quot;ES5&quot; --module &quot;amd&quot; --out &quot;test.js&quot; -sourcemap -declarations @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ')" />
+    <Exec Command="tsc --target &quot;ES5&quot; --module &quot;amd&quot; --out &quot;test.js&quot; -sourcemap -declaration @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ')" />
   </Target>
   <PropertyGroup>
     <PreBuildEvent>

@@ -1,4 +1,4 @@
-///<reference path='./../TSM/tsm-0.6.d.ts' />
+///<reference path='./../../TSM/tsm-0.6.d.ts' />
 
 window.onload = () => {
 
