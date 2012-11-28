@@ -100,34 +100,40 @@ module TSM {
         }
 
         reset(): void {
-            for (var i = 0; i < 3; i++) {
-                this.values[i] = 0;
-            }
+            this.x = 0;
+            this.y = 0;
+            this.z = 0;
         }
 
         copy(dest: vec3 = null): vec3 {
             if (!dest) dest = new vec3();
 
-            for (var i = 0; i < 3; i++) {
-                dest.values[i] = this.values[i];
-            }
+            dest.x = this.x;
+            dest.y = this.y;
+            dest.z = this.z;
 
             return dest;
         }
 
-        negate(): vec3 {
-            for (var i = 0; i < 3; i++) {
-                this.values[i] *= -1;
-            }
+        negate(dest: vec3 = null): vec3 {
+            if (!dest) dest = this;
 
-            return this;
+            dest.x = -this.x;
+            dest.y = -this.y;
+            dest.z = -this.z;
+
+            return dest;
         }
 
         equals(vector: vec3, threshold = EPSILON): bool {
-            for (var i = 0; i < 3; i++) {
-                if (Math.abs(this.values[i] - vector.at(i)) > threshold)
-                    return false;
-            }
+            if (Math.abs(this.x - vector.x) > threshold)
+                return false;
+
+            if (Math.abs(this.y - vector.y) > threshold)
+                return false;
+
+            if (Math.abs(this.z - vector.z) > threshold)
+                return false;
 
             return true;
         }
@@ -145,46 +151,50 @@ module TSM {
         }
 
         add(vector: vec3): vec3 {
-            for (var i = 0; i < 3; i++) {
-                this.values[i] += vector.at(i);
-            }
+            this.x += vector.x;
+            this.y += vector.y;
+            this.z += vector.z;
 
             return this;
         }
 
         subtract(vector: vec3): vec3 {
-            for (var i = 0; i < 3; i++) {
-                this.values[i] -= vector.at(i);
-            }
+            this.x -= vector.x;
+            this.y -= vector.y;
+            this.z -= vector.z;
 
             return this;
         }
 
         multiply(vector: vec3): vec3 {
-            for (var i = 0; i < 3; i++) {
-                this.values[i] *= vector.at(i);
-            }
+            this.x *= vector.x;
+            this.y *= vector.y;
+            this.z *= vector.z;
 
             return this;
         }
 
         divide(vector: vec3): vec3 {
-            for (var i = 0; i < 3; i++) {
-                this.values[i] /= vector.at(i);
-            }
+            this.x /= vector.x;
+            this.y /= vector.y;
+            this.z /= vector.z;
 
             return this;
         }
 
-        scale(value: number): vec3 {
-            for (var i = 0; i < 3; i++) {
-                this.values[i] *= value;
-            }
+        scale(value: number, dest: vec3 = null): vec3 {
+            if (!dest) dest = this;
 
-            return this;
+            dest.x *= value;
+            dest.y *= value;
+            dest.z *= value;
+
+            return dest;
         }
 
-        normalize(): vec3 {
+        normalize(dest: vec3 = null): vec3 {
+            if (!dest) dest = this;
+
             var length = this.length();
 
             if (length === 1) {
@@ -192,23 +202,37 @@ module TSM {
             }
 
             if (length === 0) {
-                for (var i = 0; i < 3; i++) {
-                    this.values[i] = 0;
-                }
+                dest.x = 0;
+                dest.y = 0;
+                dest.z = 0;
 
-                return this;
+                return dest;
             }
 
             length = 1.0 / length;
 
-            for (var i = 0; i < 3; i++) {
-                this.values[i] *= length;
-            }
+            dest.x *= length;
+            dest.y *= length;
+            dest.z *= length;
 
-            return this;
+            return dest;
         }
 
-        static cross(vector: vec3, vector2: vec3, result: vec3 = null): vec3 {
+        multiplyMat3(matrix: mat3, dest: vec3 = null): vec3 {
+            if (!dest) dest = this;
+
+            return matrix.multiplyVec3(this, dest);
+        }
+
+        multiplyQuat(quat1: quat, dest: vec3 = null): vec3 {
+            if (!dest) dest = this;
+
+            return quat1.multiplyVec3(this, dest);
+        }
+
+        static cross(vector: vec3, vector2: vec3, dest: vec3 = null): vec3 {
+            if (!dest) dest = new vec3();
+
             var x = vector.x,
                 y = vector.y,
                 z = vector.z;
@@ -217,20 +241,11 @@ module TSM {
                 y2 = vector2.y,
                 z2 = vector2.z;
 
-            if (result) {
-                result.xyz = [
-                    y * z2 - z * y2,
-                    z * x2 - x * z2,
-                    x * y2 - y * x2
-                ];
-            }
-            else {
-                return new vec3([
-                    y * z2 - z * y2,
-                    z * x2 - x * z2,
-                    x * y2 - y * x2
-                ]);
-            }
+            dest.x = y * z2 - z * y2;
+            dest.y = z * x2 - x * z2;
+            dest.z = x * y2 - y * x2;
+
+            return dest;
         }
 
         static dot(vector: vec3, vector2: vec3): number {
@@ -261,7 +276,9 @@ module TSM {
             return (x * x + y * y + z * z);
         }
 
-        static direction(vector: vec3, vector2: vec3, result: vec3 = null): vec3 {
+        static direction(vector: vec3, vector2: vec3, dest: vec3 = null): vec3 {
+            if (!dest) dest = new vec3();
+
             var x = vector.x - vector2.x,
                 y = vector.y - vector2.y,
                 z = vector.z - vector2.z;
@@ -269,28 +286,25 @@ module TSM {
             var length = Math.sqrt(x * x + y * y + z * z);
 
             if (length === 0) {
-                return new vec3([0, 0, 0]);
+                dest.x = 0;
+                dest.y = 0;
+                dest.z = 0;
+
+                return dest;
             }
 
             length = 1 / length;
 
-            if (result) {
-                result.xyz = [
-                    x * length,
-                    y * length,
-                    z * length
-                ];
-            }
-            else {
-                return new vec3([
-                    x * length,
-                    y * length,
-                    z * length
-                ]);
-            }
+            dest.x = x * length;
+            dest.y = y * length;
+            dest.z = z * length;
+
+            return dest;
         }
 
-        static interpolate(vector: vec3, vector2: vec3, time: number, result: vec3 = null): vec3 {
+        static interpolate(vector: vec3, vector2: vec3, time: number, dest: vec3 = null): vec3 {
+            if (!dest) dest = new vec3();
+
             var x = vector.x,
                 y = vector.y,
                 z = vector.z;
@@ -299,91 +313,56 @@ module TSM {
                 y2 = vector2.y,
                 z2 = vector2.z;
 
-            if (result) {
-                result.xyz = [
-                    x + time * (x2 - x),
-                    y + time * (y2 - y),
-                    z + time * (z2 - z)
-                ];
-            }
-            else {
-                return new vec3([
-                    x + time * (x2 - x),
-                    y + time * (y2 - y),
-                    z + time * (z2 - z)
-                ]);
-            }
+            dest.x = x + time * (x2 - x);
+            dest.y = y + time * (y2 - y);
+            dest.z = z + time * (z2 - z);
+
+            return dest;
         }
 
-        static sum(vector: vec3, vector2: vec3, result: vec3 = null): vec3 {
-            if (result) {
-                result.xyz = [
-                    vector.x + vector2.x,
-                    vector.y + vector2.y,
-                    vector.z + vector2.z
-                ];
-            }
-            else {
-                return new vec3([
-                    vector.x + vector2.x,
-                    vector.y + vector2.y,
-                    vector.z + vector2.z
-                ]);
-            }
+        static sum(vector: vec3, vector2: vec3, dest: vec3 = null): vec3 {
+            if (!dest) dest = new vec3();
+
+            dest.x = vector.x + vector2.x;
+            dest.y = vector.y + vector2.y;
+            dest.z = vector.z + vector2.z;
+
+            return dest;
         }
 
-        static difference(vector: vec3, vector2: vec3, result: vec3 = null): vec3 {
-            if (result) {
-                result.xyz = [
-                    vector.x - vector2.x,
-                    vector.y - vector2.y,
-                    vector.z - vector2.z
-                ];
-            }
-            else {
-                return new vec3([
-                    vector.x - vector2.x,
-                    vector.y - vector2.y,
-                    vector.z - vector2.z
-                ]);
-            }
+        static difference(vector: vec3, vector2: vec3, dest: vec3 = null): vec3 {
+            if (!dest) dest = new vec3();
+
+            dest.x = vector.x - vector2.x;
+            dest.y = vector.y - vector2.y;
+            dest.z = vector.z - vector2.z;
+
+            return dest;
         }
 
-        static product(vector: vec3, vector2: vec3, result: vec3 = null): vec3 {
-            if (result) {
-                result.xyz = [
-                    vector.x * vector2.x,
-                    vector.y * vector2.y,
-                    vector.z * vector2.z
-                ];
-            }
-            else {
-                return new vec3([
-                    vector.x * vector2.x,
-                    vector.y * vector2.y,
-                    vector.z * vector2.z
-                ]);
-            }
+        static product(vector: vec3, vector2: vec3, dest: vec3 = null): vec3 {
+            if (!dest) dest = new vec3();
+
+            dest.x = vector.x * vector2.x;
+            dest.y = vector.y * vector2.y;
+            dest.z = vector.z * vector2.z;
+
+            return dest;
         }
 
-        static quotient(vector: vec3, vector2: vec3, result: vec3 = null): vec3 {
-            if (result) {
-                result.xyz = [
-                    vector.x / vector2.x,
-                    vector.y / vector2.y,
-                    vector.z / vector2.z
-                ];
-            }
-            else {
-                return new vec3([
-                    vector.x / vector2.x,
-                    vector.y / vector2.y,
-                    vector.z / vector2.z
-                ]);
-            }
+        static quotient(vector: vec3, vector2: vec3, dest: vec3 = null): vec3 {
+            if (!dest) dest = new vec3();
+
+            dest.x = vector.x / vector2.x;
+            dest.y = vector.y / vector2.y;
+            dest.z = vector.z / vector2.z;
+
+            return dest;
         }
 
-        toQuat(): quat {
+        toQuat(dest: quat = null): quat {
+            if (!dest) dest = new quat();
+
             var c = new vec3();
             var s = new vec3();
 
@@ -396,12 +375,12 @@ module TSM {
             c.z = Math.cos(this.z * 0.5);
             s.z = Math.sin(this.z * 0.5);
 
-            return new quat([
-                s.x * c.y * c.z - c.x * s.y * s.z,
-                c.x * s.y * c.z + s.x * c.y * s.z,
-                c.x * c.y * s.z - s.x * s.y * c.z,
-                c.x * c.y * c.z + s.x * s.y * s.z
-            ]);
+            dest.x = s.x * c.y * c.z - c.x * s.y * s.z;
+            dest.y = c.x * s.y * c.z + s.x * c.y * s.z;
+            dest.z = c.x * c.y * s.z - s.x * s.y * c.z;
+            dest.w = c.x * c.y * c.z + s.x * s.y * s.z;
+
+            return dest;
         }
 
         static zero = new vec3([0, 0, 0]);

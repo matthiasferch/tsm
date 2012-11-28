@@ -112,51 +112,73 @@ module TSM {
         setIdentity(): mat2 {
             this.values[00] = 1;
             this.values[01] = 0;
+
             this.values[02] = 0;
             this.values[03] = 1;
 
             return this;
         }
 
-        transpose(): mat2 {
+        transpose(dest: mat2 = null): mat2 {
+            if (!dest) dest = this;
+
             var temp = this.values[01];
 
-            this.values[01] = this.values[02];
-            this.values[02] = temp;
+            if (dest != this) {
+                dest.values[00] = this.values[00];
+                dest.values[03] = this.values[03];
+            }
 
-            return this;
+            dest.values[01] = this.values[02];
+
+            dest.values[02] = temp;
+
+            return dest;
         }
 
-        inverse(): mat2 {
+        inverse(dest: mat2 = null): mat2 {
+            if (!dest) dest = this;
+
             var det = this.determinant();
 
-            if (!det) return null;
+            if (det) {
+                det = 1.0 / det;
 
-            det = 1.0 / det;
+                dest.values[00] = det * (this.values[03]);
+                dest.values[01] = det * (-this.values[01]);
 
-            this.values[00] = det * (this.values[03]);
-            this.values[01] = det * (-this.values[01]);
-            this.values[02] = det * (-this.values[02]);
-            this.values[03] = det * (this.values[00]);
+                dest.values[02] = det * (-this.values[02]);
+                dest.values[03] = det * (this.values[00]);
+            }
+            else {
+                if (dest != this) {
+                    this.copy(dest);
+                }
+            }
 
-            return this;
+            return dest;
         }
 
-        multiply(matrix: mat2): mat2 {
+        multiply(matrix: mat2, dest: mat2 = null): mat2 {
+            if (!dest) dest = this;
+
             var a11 = this.values[00],
                 a12 = this.values[01],
                 a21 = this.values[02],
                 a22 = this.values[03];
 
-            this.values[00] = a11 * matrix.at(00) + a12 * matrix.at(02);
-            this.values[01] = a11 * matrix.at(01) + a12 * matrix.at(03);
-            this.values[02] = a21 * matrix.at(00) + a22 * matrix.at(02);
-            this.values[03] = a21 * matrix.at(01) + a22 * matrix.at(03);
+            dest.values[00] = a11 * matrix.at(00) + a12 * matrix.at(02);
+            dest.values[01] = a11 * matrix.at(01) + a12 * matrix.at(03);
 
-            return this;
+            dest.values[02] = a21 * matrix.at(00) + a22 * matrix.at(02);
+            dest.values[03] = a21 * matrix.at(01) + a22 * matrix.at(03);
+
+            return dest;
         }
 
-        rotate(angle: number): mat2 {
+        rotate(angle: number, dest: mat2 = null): mat2 {
+            if (!dest) dest = this;
+
             var a11 = this.values[00],
                 a12 = this.values[01],
                 a21 = this.values[02],
@@ -165,25 +187,30 @@ module TSM {
             var sin = Math.sin(angle),
                 cos = Math.cos(angle);
 
-            this.values[00] = a11 * cos + a12 * sin;
-            this.values[01] = a11 * -sin + a12 * cos;
-            this.values[02] = a21 * cos + a22 * sin;
-            this.values[03] = a21 * -sin + a22 * cos;
+            dest.values[00] = a11 * cos + a12 * sin;
+            dest.values[01] = a11 * -sin + a12 * cos;
 
-            return this;
+            dest.values[02] = a21 * cos + a22 * sin;
+            dest.values[03] = a21 * -sin + a22 * cos;
+
+            return dest;
         }
 
-        multiplyVec2(vector: vec2): vec2 {
+        multiplyVec2(vector: vec2, dest: vec2 = null): vec2 {
+            if (!dest) dest = new vec2();
+
            var x = vector.x,
                y = vector.y;
 
-            return new vec2([
-                x * this.values[00] + y * this.values[01],
-                x * this.values[02] + y * this.values[03]
-            ]);
+            dest.x = x * this.values[00] + y * this.values[01];
+            dest.y = x * this.values[02] + y * this.values[03];
+
+            return dest;
         }
 
-        scale(vector: vec2): mat2 {
+        scale(vector: vec2, dest: mat2 = null): mat2 {
+            if (!dest) dest = this;
+
             var a11 = this.values[00],
                 a12 = this.values[01],
                 a21 = this.values[02],
@@ -192,36 +219,30 @@ module TSM {
             var x = vector.x,
                 y = vector.y;
 
-            this.values[00] = a11 * x;
-            this.values[01] = a12 * y;
-            this.values[02] = a21 * x;
-            this.values[03] = a22 * y;
+            dest.values[00] = a11 * x;
+            dest.values[01] = a12 * y;
 
-            return this;
+            dest.values[02] = a21 * x;
+            dest.values[03] = a22 * y;
+
+            return dest;
         }
 
-        static product(m1: mat2, m2: mat2, result: mat2 = null): mat2 {
+        static product(m1: mat2, m2: mat2, dest: mat2 = null): mat2 {
+            if (!dest) dest = new mat2();
+
             var a11 = m1.at(00),
                 a12 = m1.at(01),
                 a21 = m1.at(02),
                 a22 = m1.at(03);
 
-            if (result) {
-                result.init([
-                    a11 * m2.at(00) + a12 * m2.at(02),
-                    a11 * m2.at(01) + a12 * m2.at(03),
-                    a21 * m2.at(00) + a22 * m2.at(02),
-                    a21 * m2.at(01) + a22 * m2.at(03)
-                ]);
-            }
-            else {
-                return new mat2([
-                    a11 * m2.at(00) + a12 * m2.at(02),
-                    a11 * m2.at(01) + a12 * m2.at(03),
-                    a21 * m2.at(00) + a22 * m2.at(02),
-                    a21 * m2.at(01) + a22 * m2.at(03)
-                ]);
-            }
+            dest.values[00] = a11 * m2.at(00) + a12 * m2.at(02);
+            dest.values[01] = a11 * m2.at(01) + a12 * m2.at(03);
+
+            dest.values[02] = a21 * m2.at(00) + a22 * m2.at(02);
+            dest.values[03] = a21 * m2.at(01) + a22 * m2.at(03);
+
+            return dest;
         }
 
         static identity = new mat2().setIdentity();

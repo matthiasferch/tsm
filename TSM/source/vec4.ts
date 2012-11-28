@@ -198,34 +198,46 @@ module TSM {
         }
 
         reset(): void {
-            for (var i = 0; i < 4; i++) {
-                this.values[i] = 0;
-            }
+            this.x = 0;
+            this.y = 0;
+            this.z = 0;
+            this.w = 0;
         }
 
         copy(dest: vec4 = null): vec4 {
             if (!dest) dest = new vec4();
 
-            for (var i = 0; i < 4; i++) {
-                dest.values[i] = this.values[i];
-            }
+            dest.x = this.x;
+            dest.y = this.y;
+            dest.z = this.z;
+            dest.w = this.w;
 
             return dest;
         }
 
-        negate(): vec4 {
-            for (var i = 0; i < 4; i++) {
-                this.values[i] *= -1;
-            }
+        negate(dest: vec4 = null): vec4 {
+            if (!dest) dest = this;
 
-            return this;
+            dest.x = -this.x;
+            dest.y = -this.y;
+            dest.z = -this.z;
+            dest.w = -this.w;
+
+            return dest;
         }
 
         equals(vector: vec4, threshold = EPSILON): bool {
-            for (var i = 0; i < 4; i++) {
-                if (Math.abs(this.values[i] - vector.at(i)) > threshold)
-                    return false;
-            }
+            if (Math.abs(this.x - vector.x) > threshold)
+                return false;
+
+            if (Math.abs(this.y - vector.y) > threshold)
+                return false;
+
+            if (Math.abs(this.z - vector.z) > threshold)
+                return false;
+
+            if (Math.abs(this.w - vector.w) > threshold)
+                return false;
 
             return true;
         }
@@ -244,46 +256,55 @@ module TSM {
         }
 
         add(vector: vec4): vec4 {
-            for (var i = 0; i < 4; i++) {
-                this.values[i] += vector.at(i);
-            }
+            this.x += vector.x;
+            this.y += vector.y;
+            this.z += vector.z;
+            this.w += vector.w;
 
             return this;
         }
 
         subtract(vector: vec4): vec4 {
-            for (var i = 0; i < 4; i++) {
-                this.values[i] -= vector.at(i);
-            }
+            this.x -= vector.x;
+            this.y -= vector.y;
+            this.z -= vector.z;
+            this.w -= vector.w;
 
             return this;
         }
 
         multiply(vector: vec4): vec4 {
-            for (var i = 0; i < 4; i++) {
-                this.values[i] *= vector.at(i);
-            }
+            this.x *= vector.x;
+            this.y *= vector.y;
+            this.z *= vector.z;
+            this.w *= vector.w;
 
             return this;
         }
 
         divide(vector: vec4): vec4 {
-            for (var i = 0; i < 4; i++) {
-                this.values[i] /= vector.at(i);
-            }
+            this.x /= vector.x;
+            this.y /= vector.y;
+            this.z /= vector.z;
+            this.w /= vector.w;
 
             return this;
         }
 
-        scale(value: number): vec4 {
-            for (var i = 0; i < 4; i++) {
-                this.values[i] *= value;
-            }
+        scale(value: number, dest: vec4 = null): vec4 {
+            if (!dest) dest = this;
 
-            return this;
+            dest.x *= value;
+            dest.y *= value;
+            dest.z *= value;
+            dest.w *= value;
+
+            return dest;
         }
 
-        normalize(): vec4 {
+        normalize(dest: vec4 = null): vec4 {
+            if (!dest) dest = this;
+
             var length = this.length();
 
             if (length === 1) {
@@ -291,115 +312,83 @@ module TSM {
             }
 
             if (length === 0) {
-                for (var i = 0; i < 4; i++) {
-                    this.values[i] = 0;
-                }
+                dest.x *= 0;
+                dest.y *= 0;
+                dest.z *= 0;
+                dest.w *= 0;
 
-                return this;
+                return dest;
             }
 
             length = 1.0 / length;
 
-            for (var i = 0; i < 4; i++) {
-                this.values[i] *= length;
-            }
+            dest.x *= length;
+            dest.y *= length;
+            dest.z *= length;
+            dest.w *= length;
 
-            return this;
+            return dest;
         }
 
-        static interpolate(vector: vec4, vector2: vec4, time: number, result: vec4 = null): vec4 {
-            if (result) {
-                result.xyzw = [
-                    vector.x + time * (vector2.x - vector.x),
-                    vector.y + time * (vector2.y - vector.y),
-                    vector.z + time * (vector2.z - vector.z),
-                    vector.w + time * (vector2.w - vector.w)
-                ];
-            }
-            else {
-                return new vec4([
-                    vector.x + time * (vector2.x - vector.x),
-                    vector.y + time * (vector2.y - vector.y),
-                    vector.z + time * (vector2.z - vector.z),
-                    vector.w + time * (vector2.w - vector.w)
-                ]);
-            }
+        multiplyMat4(matrix: mat4, dest: vec4 = null): vec4 {
+            if (!dest) dest = this;
+
+            return matrix.multiplyVec4(this, dest);
         }
 
-        static sum(vector: vec4, vector2: vec4, result: vec4 = null): vec4 {
-            if (result) {
-                result.xyzw = [
-                    vector.x + vector2.x,
-                    vector.y + vector2.y,
-                    vector.z + vector2.z,
-                    vector.w + vector2.w
-                ];
-            }
-            else {
-                return new vec4([
-                    vector.x + vector2.x,
-                    vector.y + vector2.y,
-                    vector.z + vector2.z,
-                    vector.w + vector2.w
-                ]);
-            }
+        static interpolate(vector: vec4, vector2: vec4, time: number, dest: vec4 = null): vec4 {
+            if (!dest) dest = new vec4();
+
+            dest.x = vector.x + time * (vector2.x - vector.x);
+            dest.y = vector.y + time * (vector2.y - vector.y);
+            dest.z = vector.z + time * (vector2.z - vector.z);
+            dest.w = vector.w + time * (vector2.w - vector.w);
+
+            return dest;
         }
 
-        static difference(vector: vec4, vector2: vec4, result: vec4 = null): vec4 {
-            if (result) {
-                result.xyzw = [
-                    vector.x - vector2.x,
-                    vector.y - vector2.y,
-                    vector.z - vector2.z,
-                    vector.w - vector2.w
-                ];
-            }
-            else {
-                return new vec4([
-                    vector.x - vector2.x,
-                    vector.y - vector2.y,
-                    vector.z - vector2.z,
-                    vector.w - vector2.w
-                ]);
-            }
+        static sum(vector: vec4, vector2: vec4, dest: vec4 = null): vec4 {
+            if (!dest) dest = new vec4();
+
+            dest.x = vector.x + vector2.x,
+            dest.y = vector.y + vector2.y,
+            dest.z = vector.z + vector2.z,
+            dest.w = vector.w + vector2.w
+
+            return dest;
         }
 
-        static product(vector: vec4, vector2: vec4, result: vec4 = null): vec4 {
-            if (result) {
-                result.xyzw = [
-                    vector.x * vector2.x,
-                    vector.y * vector2.y,
-                    vector.z * vector2.z,
-                    vector.w * vector2.w
-                ];
-            }
-            else {
-                return new vec4([
-                    vector.x * vector2.x,
-                    vector.y * vector2.y,
-                    vector.z * vector2.z,
-                    vector.w * vector2.w
-                ]);
-            }
+        static difference(vector: vec4, vector2: vec4, dest: vec4 = null): vec4 {
+            if (!dest) dest = new vec4();
+
+            dest.x = vector.x - vector2.x,
+            dest.y = vector.y - vector2.y,
+            dest.z = vector.z - vector2.z,
+            dest.w = vector.w - vector2.w
+
+            return dest;
         }
 
-        static quotient(vector: vec4, vector2: vec4, result: vec4 = null): vec4 {
-            if (result) {
-                result.xyzw = [
-                    vector.x / vector2.x,
-                    vector.y / vector2.y,
-                    vector.z / vector2.z,
-                    vector.w / vector2.w
-                ];
-            }
-            else {
-                return new vec4([
-                    vector.x / vector2.x,
-                    vector.y / vector2.y,
-                    vector.z / vector2.z,
-                    vector.w / vector2.w
-                ]);
-            }
+        static product(vector: vec4, vector2: vec4, dest: vec4 = null): vec4 {
+            if (!dest) dest = new vec4();
+
+            dest.x = vector.x * vector2.x,
+            dest.y = vector.y * vector2.y,
+            dest.z = vector.z * vector2.z,
+            dest.w = vector.w * vector2.w
+
+            return dest;
+        }
+
+        static quotient(vector: vec4, vector2: vec4, dest: vec4 = null): vec4 {
+            if (!dest) dest = new vec4();
+
+            dest.x = vector.x / vector2.x,
+            dest.y = vector.y / vector2.y,
+            dest.z = vector.z / vector2.z,
+            dest.w = vector.w / vector2.w
+
+            return dest;
         }
 
         static zero = new vec4([0, 0, 0, 1]);

@@ -193,31 +193,37 @@ module TSM {
             return q1.x * q2.x + q1.y * q2.y + q1.z * q2.z + q1.w * q2.w;
         }
 
-        inverse(): quat {
+        inverse(dest: quat = null): quat {
+            if (!dest) dest = this;
+
             var dot = quat.dot(this, this);
 
             if (!dot) {
-                this.xyzw = [0, 0, 0, 0];
+                for (var i = 0; i < 4; i++) {
+                    dest.values[i] = 0;
+                }
 
-                return this;
+                return dest;
             }
 
             var invDot = dot ? 1.0 / dot : 0;
 
-            this.x *= -invDot;
-            this.y *= -invDot;
-            this.z *= -invDot;
-            this.w *= invDot;
+            dest.x = this.x * -invDot;
+            dest.y = this.y * -invDot;
+            dest.z = this.z * -invDot;
+            dest.w = this.w * invDot;
 
-            return this;
+            return dest;
         }
 
-        conjugate(): quat {
-            this.values[00] *= -1;
-            this.values[01] *= -1;
-            this.values[02] *= -1;
+        conjugate(dest: quat = null): quat {
+            if (!dest) dest = this;
 
-            return this;
+            dest.x = this.x * -1;
+            dest.y = this.y * -1;
+            dest.z = this.z * -1;
+
+            return dest;
         }
 
         length(): number {
@@ -229,7 +235,9 @@ module TSM {
             return Math.sqrt(x * x + y * y + z * z + w * w);
         }
 
-        normalize(): quat {
+        normalize(dest: quat = null): quat {
+            if (!dest) dest = this;
+
             var x = this.x,
                 y = this.y,
                 z = this.z,
@@ -238,37 +246,36 @@ module TSM {
             var length = Math.sqrt(x * x + y * y + z * z + w * w);
 
             if (!length) {
-                this.x = 0;
-                this.y = 0;
-                this.z = 0;
-                this.w = 0;
+                for (var i = 0; i < 4; i++) {
+                    dest.values[i] = 0;
+                }
 
-                return this;
+                return dest;
             }
 
             length = 1 / length;
 
-            this.values[00] = x * length;
-            this.values[01] = y * length;
-            this.values[02] = z * length;
-            this.values[03] = w * length;
+            dest.x = x * length;
+            dest.y = y * length;
+            dest.z = z * length;
+            dest.w = w * length;
 
-            return this;
+            return dest;
         }
 
         add(other: quat): quat {
             for (var i = 0; i < 4; i++) {
-                this.values[i] += other.at(i);
+                this.values[i] += other.values[i];
             }
 
             return this;
         }
 
         multiply(other: quat): quat {
-            var qax = this.values[00],
-                qay = this.values[01],
-                qaz = this.values[02],
-                qaw = this.values[03];
+            var qax = this.x,
+                qay = this.y,
+                qaz = this.z,
+                qaw = this.w;
 
             var qbx = other.x,
                 qby = other.y,
@@ -283,7 +290,8 @@ module TSM {
             return this;
         }
 
-        multiplyVec3(vector: vec3): vec3 {
+        multiplyVec3(vector: vec3, dest: vec3 = null): vec3 {
+            if (!dest) dest = new vec3();
 
             var x = vector.x,
                 y = vector.y,
@@ -299,14 +307,16 @@ module TSM {
                 iz = qw * z + qx * y - qy * x,
                 iw = -qx * x - qy * y - qz * z;
 
-            return new vec3([
-                ix * qw + iw * -qx + iy * -qz - iz * -qy,
-                iy * qw + iw * -qy + iz * -qx - ix * -qz,
-                iz * qw + iw * -qz + ix * -qy - iy * -qx
-            ]);
+            dest.x = ix * qw + iw * -qx + iy * -qz - iz * -qy;
+            dest.y = iy * qw + iw * -qy + iz * -qx - ix * -qz;
+            dest.z = iz * qw + iw * -qz + ix * -qy - iy * -qx;
+
+            return dest;
         }
 
-        toMat3(): mat3 {
+        toMat3(dest: mat3 = null): mat3 {
+            if (!dest) dest = new mat3();
+
             var x = this.x,
                 y = this.y,
                 z = this.z,
@@ -326,7 +336,7 @@ module TSM {
                 wy = w * y2,
                 wz = w * z2;
 
-            return new mat3([
+            dest.init([
                     1 - (yy + zz),
                     xy + wz,
                     xz - wy,
@@ -339,9 +349,13 @@ module TSM {
                     yz - wx,
                     1 - (xx + yy)
             ]);
+
+            return dest;
         }
 
-        toMat4(): mat4 {
+        toMat4(dest: mat4 = null): mat4 {
+            if (!dest) dest = new mat4();
+
             var x = this.x,
                 y = this.y,
                 z = this.z,
@@ -361,7 +375,7 @@ module TSM {
                 wy = w * y2,
                 wz = w * z2;
 
-            return new mat4([
+            dest.init([
                 1 - (yy + zz),
                 xy + wz,
                 xz - wy,
@@ -382,28 +396,24 @@ module TSM {
                 0,
                 1
             ]);
+
+            return dest;
         }
 
-        static sum(q1: quat, q2: quat, result: quat = null): quat {
-            if (result) {
-                result.xyzw = [
-                    q1.x + q2.x,
-                    q1.y + q2.y,
-                    q1.z + q2.z,
-                    q1.w + q2.w
-                ];
-            }
-            else {
-                return new quat([
-                    q1.x + q2.x,
-                    q1.y + q2.y,
-                    q1.z + q2.z,
-                    q1.w + q2.w
-                ]);
-            }
+        static sum(q1: quat, q2: quat, dest: quat = null): quat {
+            if (!dest) dest = new quat();
+
+            dest.x = q1.x + q2.x;
+            dest.y = q1.y + q2.y;
+            dest.z = q1.z + q2.z;
+            dest.w = q1.w + q2.w;
+
+            return dest;
         }
 
-        static product(q1: quat, q2: quat, result: quat = null): quat {
+        static product(q1: quat, q2: quat, dest: quat = null): quat {
+            if (!dest) dest = new quat();
+
             var qax = q1.x,
                 qay = q1.y,
                 qaz = q1.z,
@@ -414,25 +424,16 @@ module TSM {
                 qbz = q2.z,
                 qbw = q2.w;
 
-            if (result) {
-                result.xyzw = [
-                    qax * qbw + qaw * qbx + qay * qbz - qaz * qby,
-                    qay * qbw + qaw * qby + qaz * qbx - qax * qbz,
-                    qaz * qbw + qaw * qbz + qax * qby - qay * qbx,
-                    qaw * qbw - qax * qbx - qay * qby - qaz * qbz
-                ];
-            }
-            else {
-                return new quat([
-                    qax * qbw + qaw * qbx + qay * qbz - qaz * qby,
-                    qay * qbw + qaw * qby + qaz * qbx - qax * qbz,
-                    qaz * qbw + qaw * qbz + qax * qby - qay * qbx,
-                    qaw * qbw - qax * qbx - qay * qby - qaz * qbz
-                ]);
-            }
+            dest.x = qax * qbw + qaw * qbx + qay * qbz - qaz * qby;
+            dest.y = qay * qbw + qaw * qby + qaz * qbx - qax * qbz;
+            dest.z = qaz * qbw + qaw * qbz + qax * qby - qay * qbx;
+            dest.w = qaw * qbw - qax * qbx - qay * qby - qaz * qbz;
+
+            return dest;
         }
 
-        static interpolate(q1: quat, q2: quat, time: number, result: quat = null): quat {
+        static interpolate(q1: quat, q2: quat, time: number, dest: quat = null): quat {
+            if (!dest) dest = new quat();
 
             var cosHalfTheta = q1.x * q2.x +
                                 q1.y * q2.y +
@@ -440,45 +441,32 @@ module TSM {
                                 q1.w * q2.w;
 
             if (Math.abs(cosHalfTheta) >= 1.0) {
-                return new quat([
-                    q1.x,
-                    q1.y,
-                    q1.z,
-                    q1.w
-                ]);
+                q1.copy(dest);
+
+                return dest;
             }
 
             var halfTheta = Math.acos(cosHalfTheta);
             var sinHalfTheta = Math.sqrt(1.0 - cosHalfTheta * cosHalfTheta);
 
             if (Math.abs(sinHalfTheta) < 0.001) {
-                return new quat([
-                    (q1.x * 0.5 + q2.x * 0.5),
-                    (q1.y * 0.5 + q2.y * 0.5),
-                    (q1.z * 0.5 + q2.z * 0.5),
-                    (q1.w * 0.5 + q2.w * 0.5)
-                ]);
+                dest.x = (q1.x * 0.5 + q2.x * 0.5);
+                dest.y = (q1.y * 0.5 + q2.y * 0.5);
+                dest.z = (q1.z * 0.5 + q2.z * 0.5);
+                dest.w = (q1.w * 0.5 + q2.w * 0.5);
+
+                return dest;
             }
 
             var ratioA = Math.sin((1 - time) * halfTheta) / sinHalfTheta;
             var ratioB = Math.sin(time * halfTheta) / sinHalfTheta;
 
-            if (result) {
-                result.xyzw = [
-                    (q1.x * ratioA + q2.x * ratioB),
-                    (q1.y * ratioA + q2.y * ratioB),
-                    (q1.z * ratioA + q2.z * ratioB),
-                    (q1.w * ratioA + q2.w * ratioB)
-                ];
-            }
-            else {
-                return new quat([
-                    (q1.x * ratioA + q2.x * ratioB),
-                    (q1.y * ratioA + q2.y * ratioB),
-                    (q1.z * ratioA + q2.z * ratioB),
-                    (q1.w * ratioA + q2.w * ratioB)
-                ]);
-            }
+            dest.x = (q1.x * ratioA + q2.x * ratioB);
+            dest.y = (q1.y * ratioA + q2.y * ratioB);
+            dest.z = (q1.z * ratioA + q2.z * ratioB);
+            dest.w = (q1.w * ratioA + q2.w * ratioB);
+
+            return dest;
         }
 
         static identity = new quat().setIdentity();
