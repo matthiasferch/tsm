@@ -1,4 +1,4 @@
-///<reference path='./../../TSM/tsm-0.6.d.ts' />
+///<reference path='./../../TSM/tsm-0.7.d.ts' />
 
 window.onload = () => {
 
@@ -11,7 +11,7 @@ window.onload = () => {
 
     var m1 = TSM.mat4.perspective(45, 1, 1, 100);
 
-    console.log('Perspective projection, 45° FOV:');
+    console.log('Perspective projection, 45 degree FOV:');
     console.log('mat4([');
     console.log('   ' + m1.row(0)[0] + ', ' + m1.row(0)[1] + ', ' + m1.row(0)[2] + ', ' + m1.row(0)[3]);
     console.log('   ' + m1.row(1)[0] + ', ' + m1.row(1)[1] + ', ' + m1.row(1)[2] + ', ' + m1.row(1)[3]);

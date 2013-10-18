@@ -61,7 +61,7 @@ module TSM {
             this.values[1] = values[1];
         }
 
-        constructor (values: number[] = null) {
+        constructor(values: number[]= null) {
             if (values) {
                 this.xy = values;
             }
@@ -94,7 +94,7 @@ module TSM {
             return dest;
         }
 
-        equals(vector: vec2, threshold = EPSILON): bool {
+        equals(vector: vec2, threshold = EPSILON): boolean {
             if (Math.abs(this.x - vector.x) > threshold)
                 return false;
 
@@ -244,7 +244,7 @@ module TSM {
             return dest;
         }
 
-        static interpolate(vector: vec2, vector2: vec2, time: number, dest: vec2 = null): vec2 {
+        static mix(vector: vec2, vector2: vec2, time: number, dest: vec2 = null): vec2 {
             if (!dest) dest = new vec2();
 
             var x = vector.x,

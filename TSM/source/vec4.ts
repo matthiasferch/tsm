@@ -187,7 +187,7 @@ module TSM {
             this.values[3] = values[3];
         }
 
-        constructor (values: number[] = null) {
+        constructor(values: number[]= null) {
             if (values) {
                 this.xyzw = values;
             }
@@ -226,7 +226,7 @@ module TSM {
             return dest;
         }
 
-        equals(vector: vec4, threshold = EPSILON): bool {
+        equals(vector: vec4, threshold = EPSILON): boolean {
             if (Math.abs(this.x - vector.x) > threshold)
                 return false;
 
@@ -336,7 +336,7 @@ module TSM {
             return matrix.multiplyVec4(this, dest);
         }
 
-        static interpolate(vector: vec4, vector2: vec4, time: number, dest: vec4 = null): vec4 {
+        static mix(vector: vec4, vector2: vec4, time: number, dest: vec4 = null): vec4 {
             if (!dest) dest = new vec4();
 
             dest.x = vector.x + time * (vector2.x - vector.x);
@@ -355,7 +355,7 @@ module TSM {
             dest.z = vector.z + vector2.z,
             dest.w = vector.w + vector2.w
 
-            return dest;
+        return dest;
         }
 
         static difference(vector: vec4, vector2: vec4, dest: vec4 = null): vec4 {
@@ -366,7 +366,7 @@ module TSM {
             dest.z = vector.z - vector2.z,
             dest.w = vector.w - vector2.w
 
-            return dest;
+        return dest;
         }
 
         static product(vector: vec4, vector2: vec4, dest: vec4 = null): vec4 {
@@ -377,7 +377,7 @@ module TSM {
             dest.z = vector.z * vector2.z,
             dest.w = vector.w * vector2.w
 
-            return dest;
+        return dest;
         }
 
         static quotient(vector: vec4, vector2: vec4, dest: vec4 = null): vec4 {
@@ -388,7 +388,7 @@ module TSM {
             dest.z = vector.z / vector2.z,
             dest.w = vector.w / vector2.w
 
-            return dest;
+        return dest;
         }
 
         static zero = new vec4([0, 0, 0, 1]);

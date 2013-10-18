@@ -89,7 +89,7 @@ module TSM {
             this.values[2] = values[2];
         }
 
-        constructor (values: number[] = null) {
+        constructor(values: number[]= null) {
             if (values) {
                 this.xyz = values;
             }
@@ -125,7 +125,7 @@ module TSM {
             return dest;
         }
 
-        equals(vector: vec3, threshold = EPSILON): bool {
+        equals(vector: vec3, threshold = EPSILON): boolean {
             if (Math.abs(this.x - vector.x) > threshold)
                 return false;
 
@@ -224,10 +224,10 @@ module TSM {
             return matrix.multiplyVec3(this, dest);
         }
 
-        multiplyQuat(quat1: quat, dest: vec3 = null): vec3 {
+        multiplyByQuat(quat: quat, dest: vec3 = null): vec3 {
             if (!dest) dest = this;
 
-            return quat1.multiplyVec3(this, dest);
+            return quat.multiplyVec3(this, dest);
         }
 
         static cross(vector: vec3, vector2: vec3, dest: vec3 = null): vec3 {
@@ -302,20 +302,12 @@ module TSM {
             return dest;
         }
 
-        static interpolate(vector: vec3, vector2: vec3, time: number, dest: vec3 = null): vec3 {
+        static mix(vector: vec3, vector2: vec3, time: number, dest: vec3 = null): vec3 {
             if (!dest) dest = new vec3();
 
-            var x = vector.x,
-                y = vector.y,
-                z = vector.z;
-
-            var x2 = vector2.x,
-                y2 = vector2.y,
-                z2 = vector2.z;
-
-            dest.x = x + time * (x2 - x);
-            dest.y = y + time * (y2 - y);
-            dest.z = z + time * (z2 - z);
+            dest.x = vector.x + time * (vector2.x - vector.x);
+            dest.y = vector.y + time * (vector2.y - vector.y);
+            dest.z = vector.z + time * (vector2.z - vector.z);
 
             return dest;
         }

@@ -39,7 +39,7 @@ module TSM {
 
         private values = new Float32Array(4);
 
-        constructor (values: number[] = null) {
+        constructor(values: number[]= null) {
             if (values) {
                 this.init(values);
             }
@@ -96,7 +96,7 @@ module TSM {
             ];
         }
 
-        equals(matrix: mat2, threshold = EPSILON): bool {
+        equals(matrix: mat2, threshold = EPSILON): boolean {
             for (var i = 0; i < 4; i++) {
                 if (Math.abs(this.values[i] - matrix.at(i)) > threshold)
                     return false;
@@ -106,143 +106,134 @@ module TSM {
         }
 
         determinant(): number {
-            return this.values[00] * this.values[03] - this.values[02] * this.values[01];
+            return this.values[0] * this.values[3] - this.values[2] * this.values[1];
         }
 
         setIdentity(): mat2 {
-            this.values[00] = 1;
-            this.values[01] = 0;
-
-            this.values[02] = 0;
-            this.values[03] = 1;
+            this.values[0] = 1;
+            this.values[1] = 0;
+            this.values[2] = 0;
+            this.values[3] = 1;
 
             return this;
         }
 
-        transpose(dest: mat2 = null): mat2 {
-            if (!dest) dest = this;
+        transpose(): mat2 {
+            var temp = this.values[1];
 
-            var temp = this.values[01];
+            this.values[1] = this.values[2];
+            this.values[2] = temp;
 
-            if (dest != this) {
-                dest.values[00] = this.values[00];
-                dest.values[03] = this.values[03];
-            }
-
-            dest.values[01] = this.values[02];
-
-            dest.values[02] = temp;
-
-            return dest;
+            return this;
         }
 
-        inverse(dest: mat2 = null): mat2 {
-            if (!dest) dest = this;
-
+        inverse(): mat2 {
             var det = this.determinant();
 
-            if (det) {
-                det = 1.0 / det;
+            if (!det) return null;
 
-                dest.values[00] = det * (this.values[03]);
-                dest.values[01] = det * (-this.values[01]);
+            det = 1.0 / det;
 
-                dest.values[02] = det * (-this.values[02]);
-                dest.values[03] = det * (this.values[00]);
-            }
-            else {
-                if (dest != this) {
-                    this.copy(dest);
-                }
-            }
+            this.values[0] = det * (this.values[3]);
+            this.values[1] = det * (-this.values[1]);
+            this.values[2] = det * (-this.values[2]);
+            this.values[3] = det * (this.values[0]);
 
-            return dest;
+            return this;
         }
 
-        multiply(matrix: mat2, dest: mat2 = null): mat2 {
-            if (!dest) dest = this;
+        multiply(matrix: mat2): mat2 {
+            var a11 = this.values[0],
+                a12 = this.values[1],
+                a21 = this.values[2],
+                a22 = this.values[3];
 
-            var a11 = this.values[00],
-                a12 = this.values[01],
-                a21 = this.values[02],
-                a22 = this.values[03];
+            this.values[0] = a11 * matrix.at(0) + a12 * matrix.at(2);
+            this.values[1] = a11 * matrix.at(1) + a12 * matrix.at(3);
+            this.values[2] = a21 * matrix.at(0) + a22 * matrix.at(2);
+            this.values[3] = a21 * matrix.at(1) + a22 * matrix.at(3);
 
-            dest.values[00] = a11 * matrix.at(00) + a12 * matrix.at(02);
-            dest.values[01] = a11 * matrix.at(01) + a12 * matrix.at(03);
-
-            dest.values[02] = a21 * matrix.at(00) + a22 * matrix.at(02);
-            dest.values[03] = a21 * matrix.at(01) + a22 * matrix.at(03);
-
-            return dest;
+            return this;
         }
 
-        rotate(angle: number, dest: mat2 = null): mat2 {
-            if (!dest) dest = this;
-
-            var a11 = this.values[00],
-                a12 = this.values[01],
-                a21 = this.values[02],
-                a22 = this.values[03];
+        rotate(angle: number): mat2 {
+            var a11 = this.values[0],
+                a12 = this.values[1],
+                a21 = this.values[2],
+                a22 = this.values[3];
 
             var sin = Math.sin(angle),
                 cos = Math.cos(angle);
 
-            dest.values[00] = a11 * cos + a12 * sin;
-            dest.values[01] = a11 * -sin + a12 * cos;
+            this.values[0] = a11 * cos + a12 * sin;
+            this.values[1] = a11 * -sin + a12 * cos;
+            this.values[2] = a21 * cos + a22 * sin;
+            this.values[3] = a21 * -sin + a22 * cos;
 
-            dest.values[02] = a21 * cos + a22 * sin;
-            dest.values[03] = a21 * -sin + a22 * cos;
-
-            return dest;
+            return this;
         }
 
-        multiplyVec2(vector: vec2, dest: vec2 = null): vec2 {
-            if (!dest) dest = new vec2();
+        multiplyVec2(vector: vec2, result: vec2 = null): vec2 {
+            var x = vector.x,
+                y = vector.y;
 
-           var x = vector.x,
-               y = vector.y;
+            if (result) {
+                result.xy = [
+                    x * this.values[0] + y * this.values[1],
+                    x * this.values[2] + y * this.values[3]
+                ];
 
-            dest.x = x * this.values[00] + y * this.values[01];
-            dest.y = x * this.values[02] + y * this.values[03];
-
-            return dest;
+                return result;
+            }
+            else {
+                return new vec2([
+                    x * this.values[0] + y * this.values[1],
+                    x * this.values[2] + y * this.values[3]
+                ]);
+            }
         }
 
-        scale(vector: vec2, dest: mat2 = null): mat2 {
-            if (!dest) dest = this;
-
-            var a11 = this.values[00],
-                a12 = this.values[01],
-                a21 = this.values[02],
-                a22 = this.values[03];
+        scale(vector: vec2): mat2 {
+            var a11 = this.values[0],
+                a12 = this.values[1],
+                a21 = this.values[2],
+                a22 = this.values[3];
 
             var x = vector.x,
                 y = vector.y;
 
-            dest.values[00] = a11 * x;
-            dest.values[01] = a12 * y;
+            this.values[0] = a11 * x;
+            this.values[1] = a12 * y;
+            this.values[2] = a21 * x;
+            this.values[3] = a22 * y;
 
-            dest.values[02] = a21 * x;
-            dest.values[03] = a22 * y;
-
-            return dest;
+            return this;
         }
 
-        static product(m1: mat2, m2: mat2, dest: mat2 = null): mat2 {
-            if (!dest) dest = new mat2();
+        static product(m1: mat2, m2: mat2, result: mat2 = null): mat2 {
+            var a11 = m1.at(0),
+                a12 = m1.at(1),
+                a21 = m1.at(2),
+                a22 = m1.at(3);
 
-            var a11 = m1.at(00),
-                a12 = m1.at(01),
-                a21 = m1.at(02),
-                a22 = m1.at(03);
+            if (result) {
+                result.init([
+                    a11 * m2.at(0) + a12 * m2.at(2),
+                    a11 * m2.at(1) + a12 * m2.at(3),
+                    a21 * m2.at(0) + a22 * m2.at(2),
+                    a21 * m2.at(1) + a22 * m2.at(3)
+                ]);
 
-            dest.values[00] = a11 * m2.at(00) + a12 * m2.at(02);
-            dest.values[01] = a11 * m2.at(01) + a12 * m2.at(03);
-
-            dest.values[02] = a21 * m2.at(00) + a22 * m2.at(02);
-            dest.values[03] = a21 * m2.at(01) + a22 * m2.at(03);
-
-            return dest;
+                return result;
+            }
+            else {
+                return new mat2([
+                    a11 * m2.at(0) + a12 * m2.at(2),
+                    a11 * m2.at(1) + a12 * m2.at(3),
+                    a21 * m2.at(0) + a22 * m2.at(2),
+                    a21 * m2.at(1) + a22 * m2.at(3)
+                ]);
+            }
         }
 
         static identity = new mat2().setIdentity();

@@ -62,10 +62,10 @@
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="BeforeBuild">
-    <Exec Command="tsc --target &quot;ES5&quot; --module &quot;amd&quot; --out &quot;tsm-0.6.js&quot; -sourcemap -declaration @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ')" />
+    <Exec Command="tsc --target &quot;ES5&quot; --module &quot;amd&quot; --out &quot;tsm-0.7.js&quot; -sourcemap -declaration @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ')" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>java -jar "$(SolutionDir)closure-compiler.jar"  --language_in ECMASCRIPT5 --js_output_file "$(ProjectDir)tsm-0.6.min.js" --js "$(ProjectDir)tsm-0.6.js"</PostBuildEvent>
+    <PostBuildEvent>java -jar "$(SolutionDir)closure-compiler.jar"  --language_in ECMASCRIPT5 --js_output_file "$(ProjectDir)tsm-0.7.min.js" --js "$(ProjectDir)tsm-0.7.js"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
