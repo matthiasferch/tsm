@@ -114,7 +114,7 @@ You can also initialize a new vector with the values of another:
     var v1 = new TSM.vec4([1, 2, 3, 4);
     var v2 = new TSM.vec4(v1.xyzw);
 
-Or copy the values of one vector to another using the swizzle operators:
+Or copy the values of one vector to another using the swizzle operators or the copy() method:
 
     v2.xyzw = v1.xyzw; // same as v1.copy(v2)
 
