@@ -116,7 +116,7 @@ You can also initialize a new vector with the values of another:
 
 Or copy the values of one vector to another using the swizzle operators:
 
-    v1.xyzw = v2.xyzw;
+    v2.xyzw = v1.xyzw; // same as v1.copy(v2)
 
 The four basic arithmetic operations can be performed on vector instances or using static methods:
 
