@@ -2860,6 +2860,22 @@ var TSM;
             return dest;
         };
 
+        quat.fromAxis = function (axis, angle, dest) {
+            if (typeof dest === "undefined") { dest = null; }
+            if (!dest)
+                dest = new quat();
+
+            angle *= 0.5;
+            var sin = Math.sin(angle);
+
+            dest.x = axis.x * sin;
+            dest.y = axis.y * sin;
+            dest.z = axis.z * sin;
+            dest.w = Math.cos(angle);
+
+            return dest;
+        };
+
         quat.identity = new quat().setIdentity();
         return quat;
     })();
