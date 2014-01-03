@@ -528,6 +528,20 @@ module TSM {
             return dest;
         }
 
+        static fromAxis(axis: vec3, angle: number, dest: quat = null): quat {
+            if (!dest) dest = new quat();
+
+            angle *= 0.5;
+            var sin = Math.sin(angle);
+
+            dest.x = axis.x * sin;
+            dest.y = axis.y * sin;
+            dest.z = axis.z * sin;
+            dest.w = Math.cos(angle);
+
+            return dest;
+        }
+
         static identity = new quat().setIdentity();
 
     }

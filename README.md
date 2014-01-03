@@ -34,7 +34,8 @@ This project includes a solution file for *Visual Studio 2012*. It also works wi
 
 If you do not want to or cannot use Visual Studio, you can use the command line tool which comes with the plugin instead:
 
-    tsc --target "ES5" --out "tsm-[x.y].js" -sourcemap -declarations tsm.ts
+    tsc --target "ES5" --out "tsm-[x.y].js" -sourcemap -declaration tsm.ts
+    java -jar ../closure-compiler.jar < tsm-[x.y].js > tsm-[x.y].min.js
 
 The *target* parameter is necessary for the swizzle operators (.xyz, etc.) to work.
 
