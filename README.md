@@ -129,7 +129,9 @@ The four basic arithmetic operations can be performed on vector instances or usi
     v1.multiply(v2); // writes the result of the multiplication into v1
     v2.multiply(v1); // writes the result of the multiplication into v2
 
-The reason for all of these different ways of doing the same thing is that object allocation in JavaScript is slow and dynamic allocation shoud therefore be reduced to a minimum. For this reason, static methods offer an optional destination parameter:
+The reason for all of these different ways of doing the same thing is that object allocation in JavaScript is slow and dynamic allocation shoud therefore be reduced to a minimum. [See here for details.](http://wunderwerk.blogspot.de/2012/11/typescriptjavascript-minimizing-garbage.html)
+
+For this reason, static methods offer an optional destination parameter:
 
     var v3 = TSM.vec3.cross(v1, v2) // allocates a new instance of vec3
 
