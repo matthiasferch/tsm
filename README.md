@@ -6,7 +6,7 @@ TSM is a a collection of vector and matrix classes written in Microsoft's new Ja
 What's special about TSM?
 -------------------------
 
-- TSM makes use of TypeScript's type annotations to reduce the number of possible bugs and has been used extensively in the development of a large-scale WebGL application (more information about that project will be published soon).
+- TSM makes use of TypeScript's type annotations to reduce the number of possible bugs and has been used extensively in the development of a large-scale WebGL application (to be announced soon).
 
 - TSM makes use of JavaScript's new property definitions to enable GLSL-style swizzle operators:
 
@@ -34,7 +34,7 @@ This project includes a solution file for *Visual Studio 2012*. It also works wi
 
 If you do not want to or cannot use Visual Studio, you can use the command line tool which comes with the plugin instead:
 
-    tsc --target "ES5" --out "tsm-[x.y].js" -sourcemap -declaration tsm.ts
+    tsc --target "ES5" --out "tsm-[x.y].js" -sourcemap -declarations tsm.ts
     java -jar ../closure-compiler.jar < tsm-[x.y].js > tsm-[x.y].min.js
 
 The *target* parameter is necessary for the swizzle operators (.xyz, etc.) to work.
