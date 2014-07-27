@@ -218,7 +218,7 @@ module TSM {
             return dest;
         }
 
-        multiplyMat3(matrix: mat3, dest: vec3 = null): vec3 {
+        multiplyByMat3(matrix: mat3, dest: vec3 = null): vec3 {
             if (!dest) dest = this;
 
             return matrix.multiplyVec3(this, dest);
