@@ -596,7 +596,7 @@ var TSM;
             return dest;
         };
 
-        vec3.prototype.multiplyMat3 = function (matrix, dest) {
+        vec3.prototype.multiplyByMat3 = function (matrix, dest) {
             if (typeof dest === "undefined") { dest = null; }
             if (!dest)
                 dest = this;

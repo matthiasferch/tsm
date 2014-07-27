@@ -56,7 +56,7 @@ declare module TSM {
         public divide(vector: vec3): vec3;
         public scale(value: number, dest?: vec3): vec3;
         public normalize(dest?: vec3): vec3;
-        public multiplyMat3(matrix: TSM.mat3, dest?: vec3): vec3;
+        public multiplyByMat3(matrix: TSM.mat3, dest?: vec3): vec3;
         public multiplyByQuat(quat: TSM.quat, dest?: vec3): vec3;
         static cross(vector: vec3, vector2: vec3, dest?: vec3): vec3;
         static dot(vector: vec3, vector2: vec3): number;
