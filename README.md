@@ -112,7 +112,7 @@ If, instead, you want to create a new instance of a vector or a matrix, use the 
 
 You can also initialize a new vector with the values of another:
 
-    var v1 = new TSM.vec4([1, 2, 3, 4);
+    var v1 = new TSM.vec4([1, 2, 3, 4]);
     var v2 = new TSM.vec4(v1.xyzw);
 
 Or copy the values of one vector to another using the swizzle operators or the copy() method:
@@ -129,7 +129,7 @@ The four basic arithmetic operations can be performed on vector instances or usi
     v1.multiply(v2); // writes the result of the multiplication into v1
     v2.multiply(v1); // writes the result of the multiplication into v2
 
-The reason for all of these different ways of doing the same thing is that object allocation in JavaScript is slow and dynamic allocation shoud therefore be reduced to a minimum. [See here for details.](http://wunderwerk.blogspot.de/2012/11/typescriptjavascript-minimizing-garbage.html)
+The reason for all of these different ways of doing the same thing is that object allocation in JavaScript is slow and dynamic allocation shoud therefore be reduced to a minimum.
 
 For this reason, static methods offer an optional destination parameter:
 
