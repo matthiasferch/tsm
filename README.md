@@ -96,7 +96,7 @@ If instead you receive an error message along the lines of "TSM is not defined",
 Documentation
 -------------
 
-Unfortunately, there is no way yet to automatically generate documentation from TypeScript sources. I'll see what I can do. Please refer to [the declarations file](https://github.com/vexator/TSM/blob/master/TSM/tsm-0.7.d.ts) in the meantime.
+Unfortunately, there is no way yet to automatically generate documentation from TypeScript sources. I'll see what I can do. Please refer to [the declarations file](https://github.com/matthiasferch/TSM/blob/master/TSM/tsm-0.7.d.ts) in the meantime.
 
 ###General design notes
 
