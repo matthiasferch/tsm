@@ -1,14 +1,14 @@
-TSM - A TypeScript vector and matrix math library
+TSM - A Typescript vector and matrix math library
 =================================================
 
-TSM is a a collection of vector and matrix classes written in Microsoft's new JavaScript superset *TypeScript*, which compiles to plain JavaScript. The library's design is influenced by both [gl-matrix](https://github.com/toji/gl-matrix) and [GLM](https://github.com/g-truc/glm). 
+TSM is a a collection of vector and matrix classes written in Microsoft's new Javascript superset *Typescript*, which compiles to plain Javascript. The library's design is influenced by both [gl-matrix](https://github.com/toji/gl-matrix) and [GLM](https://github.com/g-truc/glm). 
 
 What's special about TSM?
 -------------------------
 
-- TSM makes use of TypeScript's type annotations to reduce the number of possible bugs and has been used extensively in the development of a large-scale WebGL application (to be announced soon).
+- TSM makes use of Typescript's type annotations to reduce the number of possible bugs.
 
-- TSM makes use of JavaScript's new property definitions to enable GLSL-style swizzle operators:
+- TSM makes use of Javascript's new property definitions to enable GLSL-style swizzle operators:
 
         var v1 = new TSM.vec2();
         var q1 = new TSM.quat();
@@ -30,7 +30,7 @@ What's special about TSM?
 Building TSM
 ------------
 
-This project includes a solution file for *Visual Studio 2012*. It also works with the free Express version of *Visual Studio 2012 for the Web*, which can be downloaded for free from the Microsoft website. Please install the *TypeScript plugin for Visual Studio 2012* to get syntax highlighting and IntelliSense support: http://www.microsoft.com/en-us/download/details.aspx?id=34790.
+This project includes a solution file for *Visual Studio 2012*. It also works with the free Express version of *Visual Studio 2012 for the Web*, which can be downloaded for free from the Microsoft website. Please install the *Typescript plugin for Visual Studio 2012* to get syntax highlighting and IntelliSense support: http://www.microsoft.com/en-us/download/details.aspx?id=34790.
 
 If you do not want to or cannot use Visual Studio, you can use the command line tool which comes with the plugin instead:
 
@@ -42,13 +42,13 @@ The *target* parameter is necessary for the swizzle operators (.xyz, etc.) to wo
 After successful compilation, four files will be created:
 
 - *tsm-[x.y].js:*
-The compiled JavaScript source, readable
+The compiled Javascript source, readable
 - *tsm-[x.y].min.js:*
-The compiled JavaScript source, minified
+The compiled Javascript source, minified
 - *tsm-[x.y].d.ts:*
-The TypeScript declarations file, which contains a listing of all classes and methods
+The Typescript declarations file, which contains a listing of all classes and methods
 - *tsm-[x.y].js.map:*
-A source map which maps the compiled JavaScript output to the original TypeScript source files
+A source map which maps the compiled JavaScript output to the original Typescript source files
 
 
 Using TSM
@@ -66,7 +66,7 @@ You can use a reference comment to the declarations file or a module import to g
     
     import TSM = module("path/to/TSM")
 
-### In JavaScript
+### In Javascript
 
 If you want to use the generated JavaScript instead, simply load the compiled .js or .min.js file by use of a script tag:
 
@@ -95,8 +95,6 @@ If instead you receive an error message along the lines of "TSM is not defined",
 
 Documentation
 -------------
-
-Unfortunately, there is no way yet to automatically generate documentation from TypeScript sources. I'll see what I can do. Please refer to [the declarations file](https://github.com/matthiasferch/TSM/blob/master/TSM/tsm-0.7.d.ts) in the meantime.
 
 ###General design notes
 
@@ -129,7 +127,7 @@ The four basic arithmetic operations can be performed on vector instances or usi
     v1.multiply(v2); // writes the result of the multiplication into v1
     v2.multiply(v1); // writes the result of the multiplication into v2
 
-The reason for all of these different ways of doing the same thing is that object allocation in JavaScript is slow and dynamic allocation shoud therefore be reduced to a minimum.
+The reason for all of these different ways of doing the same thing is that object allocation in Javascript is slow and dynamic allocation shoud therefore be reduced to a minimum.
 
 For this reason, static methods offer an optional destination parameter:
 
