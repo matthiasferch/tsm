@@ -93,10 +93,8 @@ The solution contains a test application. Open *TSM/Test/index.html* in a browse
 If instead you receive an error message along the lines of "TSM is not defined", please make sure that your script tags are properly set up.
 
 
-Documentation
--------------
-
-###General design notes
+General design notes
+--------------------
 
 Swizzle operators return numeric arrays, not vector instances:
 
