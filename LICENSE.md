@@ -1,6 +1,6 @@
-Copyright (c) 2012 Matthias Ferch
+Copyright (c) 2012, 2018 Matthias Ferch
 
-Project homepage: https://github.com/matthiasferch/TSM
+Project homepage: https://github.com/matthiasferch/tsm
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
