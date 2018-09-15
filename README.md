@@ -1,16 +1,16 @@
 tsm: A Typescript vector and matrix math library
 =================================================
 
-*tsm* is a a collection of vector, matrix and quaternion classes written in Typescript. 
+tsm is a a collection of vector, matrix and quaternion classes written in Typescript. 
 
 The library's design is influenced by both [gl-matrix](https://github.com/toji/gl-matrix) and [glm](https://github.com/g-truc/glm). 
 
-What's special about *tsm*?
+What's special about tsm?
 -------------------------
 
-- *tsm* makes use of Typescript's type annotations to reduce the number of possible bugs.
+- tsm makes use of Typescript's type annotations to reduce the number of possible bugs.
 
-- *tsm* makes use of Javascript's new property definitions to enable GLSL-style swizzle operators:
+- tsm makes use of Javascript's new property definitions to enable GLSL-style swizzle operators:
 
         let v1 = new vec2();
         let q1 = new quat();
@@ -18,7 +18,7 @@ What's special about *tsm*?
         v1.xy = [0, 1];
         q1.w = 1.0;
 
-- *tsm* offers both non-static and static methods for many operations:
+- tsm offers both non-static and static methods for many operations:
 
         let v1 = new vec3([1, 2, 3]);
         let v2 = new vec3([4, 5, 6]);
