@@ -171,10 +171,10 @@ export default class vec2 {
         if (!dest) { dest = new vec3() }
 
         const x = vector.x
-        const    y = vector.y
+        const y = vector.y
 
         const x2 = vector2.x
-        const  y2 = vector2.y
+        const y2 = vector2.y
 
         const z = x * y2 - y * x2
 
@@ -204,7 +204,7 @@ export default class vec2 {
         if (!dest) { dest = new vec2() }
 
         const x = vector.x - vector2.x
-        const    y = vector.y - vector2.y
+        const y = vector.y - vector2.y
 
         let length = Math.sqrt(x * x + y * y)
 
@@ -227,10 +227,10 @@ export default class vec2 {
         if (!dest) { dest = new vec2() }
 
         const x = vector.x
-        const   y = vector.y
+        const y = vector.y
 
         const x2 = vector2.x
-        const  y2 = vector2.y
+        const y2 = vector2.y
 
         dest.x = x + time * (x2 - x)
         dest.y = y + time * (y2 - y)
