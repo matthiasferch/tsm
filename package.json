@@ -4,7 +4,6 @@
   "description": "A TypeScript vector and matrix math library",
   "author": "Matthias Ferch",
   "module": "src/tsm.js",
-  "private": true,
   "scripts": {
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
     "lint": "tslint src/*.ts -t verbose",
