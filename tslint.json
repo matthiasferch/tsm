@@ -1,0 +1,44 @@
+{
+  "extends": "tslint:latest",
+  "rules": {
+    "class-name": false,
+    "prefer-const": true,
+    "no-require-imports": true,
+    "semicolon": [
+      true,
+      "never"
+    ],
+    "quotemark": [
+      true,
+      "single",
+      "avoid-escape"
+    ],
+    "member-access": [
+      true,
+      "no-public"
+    ],
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "constructor",
+          "public-instance-field",
+          "private-instance-field",
+          "public-static-field",
+          "private-static-field",
+          "public-instance-method",
+          "protected-instance-method",
+          "private-instance-method",
+          "public-static-method",
+          "private-static-method"
+        ]
+      }
+    ],
+    "object-literal-sort-keys": false,
+    "adjacent-overload-signatures": false,
+    "no-implicit-dependencies": [
+      true, 
+      "dev"
+    ]
+  }
+}
