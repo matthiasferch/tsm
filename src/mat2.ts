@@ -12,7 +12,7 @@ export default class mat2 {
 
     private values = new Float32Array(4)
 
-    static identity = new mat2().setIdentity()
+    static readonly identity = new mat2().setIdentity()
 
     at(index: number): number {
         return this.values[index]

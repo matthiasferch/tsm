@@ -160,7 +160,8 @@ export default class vec4 {
 
     private values = new Float32Array(4)
 
-    static zero = new vec4([0, 0, 0, 1])
+    static readonly zero = new vec4([0, 0, 0, 1])
+    static readonly one = new vec4([1, 1, 1, 1])
 
     at(index: number): number {
         return this.values[index]

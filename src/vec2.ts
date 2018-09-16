@@ -42,7 +42,8 @@ export default class vec2 {
 
     private values = new Float32Array(2)
 
-    static zero = new vec2([0, 0])
+    static readonly zero = new vec2([0, 0])
+    static readonly one = new vec2([1, 1])
 
     at(index: number): number {
         return this.values[index]

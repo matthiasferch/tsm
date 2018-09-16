@@ -63,11 +63,12 @@ export default class vec3 {
 
     private values = new Float32Array(3)
 
-    static zero = new vec3([0, 0, 0])
+    static readonly zero = new vec3([0, 0, 0])
+    static readonly one = new vec3([1, 1, 1])
 
-    static up = new vec3([0, 1, 0])
-    static right = new vec3([1, 0, 0])
-    static forward = new vec3([0, 0, 1])
+    static readonly up = new vec3([0, 1, 0])
+    static readonly right = new vec3([1, 0, 0])
+    static readonly forward = new vec3([0, 0, 1])
 
     at(index: number): number {
         return this.values[index]

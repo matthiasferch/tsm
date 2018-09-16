@@ -88,7 +88,7 @@ export default class quat {
 
     private values = new Float32Array(4)
 
-    static identity = new quat().setIdentity()
+    static readonly identity = new quat().setIdentity()
 
     at(index: number): number {
         return this.values[index]
@@ -499,7 +499,7 @@ export default class quat {
         return dest
     }
 
-    static fromAxis(axis: vec3, angle: number, dest?: quat): quat {
+    static fromAxisAngle(axis: vec3, angle: number, dest?: quat): quat {
         if (!dest) { dest = new quat() }
 
         angle *= 0.5
