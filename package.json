@@ -3,8 +3,8 @@
   "version": "0.8.4",
   "description": "A node version of the TypeScript vector and matrix math library.",
   "author": "Matthias Ferch",
-  "main": "src/index.js",
-  "types": "src/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
     "lint": "tslint src/*.ts -t verbose",
