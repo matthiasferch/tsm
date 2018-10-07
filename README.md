@@ -1,6 +1,8 @@
 tsm: A Typescript vector and matrix math library
 =================================================
 
+This is node packaged version of the library.
+
 tsm is a a collection of vector, matrix and quaternion classes written in Typescript. 
 
 The library's design is influenced by both [gl-matrix](https://github.com/toji/gl-matrix) and [glm](https://github.com/g-truc/glm). 
