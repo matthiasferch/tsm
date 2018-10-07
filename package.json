@@ -8,7 +8,8 @@
   "scripts": {
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
     "lint": "tslint src/*.ts -t verbose",
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@types/chai": "^4.1.4",
