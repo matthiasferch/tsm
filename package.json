@@ -1,6 +1,6 @@
 {
   "name": "@tlaukkan/tsm",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "A node version of the TypeScript vector and matrix math library.",
   "author": "Matthias Ferch",
   "main": "src/tsm.js",
