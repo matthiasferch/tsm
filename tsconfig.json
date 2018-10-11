@@ -1,14 +1,13 @@
 {
-    "include": [
-        "./src/**/*"
-    ],
+    "include": ["src/"],
     "exclude": [
-        "./test/**/*.spec.ts"
+        "test/",
+        "types/"
     ],
     "compilerOptions": {
-        "outDir": "./dist/",
-        "module": "commonjs",
         "target": "es5",
         "sourceMap": true,
+        "declaration": true,
+        "declarationDir": "types/"
     }
 }
