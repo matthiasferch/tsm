@@ -194,7 +194,7 @@ export default class mat4 {
         let det = (det00 * det11 - det01 * det10 + det02 * det09 + det03 * det08 - det04 * det07 + det05 * det06)
 
         if (!det) {
-            return null
+            throw new Error('Can\t inverse this matrix as its determinant is 0')
         }
 
         det = 1.0 / det
@@ -340,7 +340,7 @@ export default class mat4 {
         let det = a00 * det01 + a01 * det11 + a02 * det21
 
         if (!det) {
-            return null
+            throw new Error('Can\t inverse this matrix as its determinant is 0')
         }
 
         det = 1.0 / det
@@ -402,7 +402,7 @@ export default class mat4 {
         let length = Math.sqrt(x * x + y * y + z * z)
 
         if (!length) {
-            return null
+            throw new Error('Can\'t rotate this matrix as its length is 0.')
         }
 
         if (length !== 1) {

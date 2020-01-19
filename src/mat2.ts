@@ -100,7 +100,9 @@ export default class mat2 {
     inverse(): mat2 {
         let det = this.determinant()
 
-        if (!det) { return null }
+        if (!det) {
+            throw new Error('Can\t inverse this matrix as its determinant is 0')
+         }
 
         det = 1.0 / det
 
