@@ -1,14 +1,20 @@
 {
+    "compilerOptions": {
+        "target": "esnext",
+        "lib": [
+          "dom",
+          "es2015"
+        ],
+        "module": "es2015",
+        "moduleResolution": "node",
+        "outDir": "lib",
+        "declaration": true,
+        "strict": true
+    },
     "include": [
-        "./src/**/*"
+        "src/**/*"
     ],
     "exclude": [
         "./test/**/*.spec.ts"
     ],
-    "compilerOptions": {
-        "outDir": "./dist/",
-        "module": "commonjs",
-        "target": "es5",
-        "sourceMap": true,
-    }
 }

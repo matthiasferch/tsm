@@ -3,8 +3,11 @@
   "version": "0.8.0",
   "description": "A TypeScript vector and matrix math library",
   "author": "Matthias Ferch",
-  "module": "src/tsm.js",
+  "module": "dist/tsm.js",
+  "main": "dist/tsm.js",
+  "typings": "lib/tsm.d.ts",
   "scripts": {
+    "prepare": "npm run build",
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
     "lint": "tslint src/*.ts -t verbose",
     "build": "webpack",
