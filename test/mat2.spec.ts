@@ -1,14 +1,14 @@
 import { expect } from 'chai'
 import 'mocha'
 
-import mat2 from '../src/mat2'
+import Mat2 from '../src/mat2'
 
-import { epsilon } from '../src/constants'
+import { EPSILON } from '../src/constants'
 
-describe('mat2', () => {
+describe('Mat2', () => {
 
   it('transposes', () => {
-    const matrix = new mat2([
+    const matrix = new Mat2([
         1.0, 2.0,
         3.0, 4.0,
     ])
@@ -22,7 +22,7 @@ describe('mat2', () => {
   })
 
   it('inverses', () => {
-    const matrix = new mat2([
+    const matrix = new Mat2([
         1.0, 2.0,
         3.0, 4.0,
     ])

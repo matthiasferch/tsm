@@ -1,10 +1,10 @@
-import mat2 from './mat2'
-import mat3 from './mat3'
-import vec3 from './vec3'
+import Mat2 from './mat2'
+import Mat3 from './mat3'
+import Vec3 from './vec3'
 
-import { epsilon } from './constants'
+import { EPSILON } from './constants'
 
-export default class vec2 {
+export default class Vec2 {
 
     get x(): number {
         return this.values[0]
@@ -42,8 +42,8 @@ export default class vec2 {
 
     private values = new Float32Array(2)
 
-    static readonly zero = new vec2([0, 0])
-    static readonly one = new vec2([1, 1])
+    static readonly zero = new Vec2([0, 0])
+    static readonly one = new Vec2([1, 1])
 
     at(index: number): number {
         return this.values[index]
@@ -54,8 +54,8 @@ export default class vec2 {
         this.y = 0
     }
 
-    copy(dest?: vec2): vec2 {
-        if (!dest) { dest = new vec2() }
+    copy(dest?: Vec2): Vec2 {
+        if (!dest) { dest = new Vec2() }
 
         dest.x = this.x
         dest.y = this.y
@@ -63,7 +63,7 @@ export default class vec2 {
         return dest
     }
 
-    negate(dest?: vec2): vec2 {
+    negate(dest?: Vec2): Vec2 {
         if (!dest) { dest = this }
 
         dest.x = -this.x
@@ -72,7 +72,7 @@ export default class vec2 {
         return dest
     }
 
-    equals(vector: vec2, threshold = epsilon): boolean {
+    equals(vector: Vec2, threshold = EPSILON): boolean {
         if (Math.abs(this.x - vector.x) > threshold) {
             return false
         }
@@ -95,35 +95,35 @@ export default class vec2 {
         return (x * x + y * y)
     }
 
-    add(vector: vec2): vec2 {
+    add(vector: Vec2): Vec2 {
         this.x += vector.x
         this.y += vector.y
 
         return this
     }
 
-    subtract(vector: vec2): vec2 {
+    subtract(vector: Vec2): Vec2 {
         this.x -= vector.x
         this.y -= vector.y
 
         return this
     }
 
-    multiply(vector: vec2): vec2 {
+    multiply(vector: Vec2): Vec2 {
         this.x *= vector.x
         this.y *= vector.y
 
         return this
     }
 
-    divide(vector: vec2): vec2 {
+    divide(vector: Vec2): Vec2 {
         this.x /= vector.x
         this.y /= vector.y
 
         return this
     }
 
-    scale(value: number, dest?: vec2): vec2 {
+    scale(value: number, dest?: Vec2): Vec2 {
         if (!dest) { dest = this }
 
         dest.x *= value
@@ -132,7 +132,7 @@ export default class vec2 {
         return dest
     }
 
-    normalize(dest?: vec2): vec2 {
+    normalize(dest?: Vec2): Vec2 {
         if (!dest) { dest = this }
 
         let length = this.length()
@@ -156,20 +156,20 @@ export default class vec2 {
         return dest
     }
 
-    multiplyMat2(matrix: mat2, dest?: vec2): vec2 {
+    multiplyMat2(matrix: Mat2, dest?: Vec2): Vec2 {
         if (!dest) { dest = this }
 
         return matrix.multiplyVec2(this, dest)
     }
 
-    multiplyMat3(matrix: mat3, dest?: vec2): vec2 {
+    multiplyMat3(matrix: Mat3, dest?: Vec2): Vec2 {
         if (!dest) { dest = this }
 
         return matrix.multiplyVec2(this, dest)
     }
 
-    static cross(vector: vec2, vector2: vec2, dest?: vec3): vec3 {
-        if (!dest) { dest = new vec3() }
+    static cross(vector: Vec2, vector2: Vec2, dest?: Vec3): Vec3 {
+        if (!dest) { dest = new Vec3() }
 
         const x = vector.x
         const y = vector.y
@@ -186,23 +186,23 @@ export default class vec2 {
         return dest
     }
 
-    static dot(vector: vec2, vector2: vec2): number {
+    static dot(vector: Vec2, vector2: Vec2): number {
         return (vector.x * vector2.x + vector.y * vector2.y)
     }
 
-    static distance(vector: vec2, vector2: vec2): number {
+    static distance(vector: Vec2, vector2: Vec2): number {
         return Math.sqrt(this.squaredDistance(vector, vector2))
     }
 
-    static squaredDistance(vector: vec2, vector2: vec2): number {
+    static squaredDistance(vector: Vec2, vector2: Vec2): number {
         const x = vector2.x - vector.x
         const y = vector2.y - vector.y
 
         return (x * x + y * y)
     }
 
-    static direction(vector: vec2, vector2: vec2, dest?: vec2): vec2 {
-        if (!dest) { dest = new vec2() }
+    static direction(vector: Vec2, vector2: Vec2, dest?: Vec2): Vec2 {
+        if (!dest) { dest = new Vec2() }
 
         const x = vector.x - vector2.x
         const y = vector.y - vector2.y
@@ -224,8 +224,8 @@ export default class vec2 {
         return dest
     }
 
-    static mix(vector: vec2, vector2: vec2, time: number, dest?: vec2): vec2 {
-        if (!dest) { dest = new vec2() }
+    static mix(vector: Vec2, vector2: Vec2, time: number, dest?: Vec2): Vec2 {
+        if (!dest) { dest = new Vec2() }
 
         const x = vector.x
         const y = vector.y
@@ -239,8 +239,8 @@ export default class vec2 {
         return dest
     }
 
-    static sum(vector: vec2, vector2: vec2, dest?: vec2): vec2 {
-        if (!dest) { dest = new vec2() }
+    static sum(vector: Vec2, vector2: Vec2, dest?: Vec2): Vec2 {
+        if (!dest) { dest = new Vec2() }
 
         dest.x = vector.x + vector2.x
         dest.y = vector.y + vector2.y
@@ -248,8 +248,8 @@ export default class vec2 {
         return dest
     }
 
-    static difference(vector: vec2, vector2: vec2, dest?: vec2): vec2 {
-        if (!dest) { dest = new vec2() }
+    static difference(vector: Vec2, vector2: Vec2, dest?: Vec2): Vec2 {
+        if (!dest) { dest = new Vec2() }
 
         dest.x = vector.x - vector2.x
         dest.y = vector.y - vector2.y
@@ -257,8 +257,8 @@ export default class vec2 {
         return dest
     }
 
-    static product(vector: vec2, vector2: vec2, dest?: vec2): vec2 {
-        if (!dest) { dest = new vec2() }
+    static product(vector: Vec2, vector2: Vec2, dest?: Vec2): Vec2 {
+        if (!dest) { dest = new Vec2() }
 
         dest.x = vector.x * vector2.x
         dest.y = vector.y * vector2.y
@@ -266,8 +266,8 @@ export default class vec2 {
         return dest
     }
 
-    static quotient(vector: vec2, vector2: vec2, dest?: vec2): vec2 {
-        if (!dest) { dest = new vec2() }
+    static quotient(vector: Vec2, vector2: Vec2, dest?: Vec2): Vec2 {
+        if (!dest) { dest = new Vec2() }
 
         dest.x = vector.x / vector2.x
         dest.y = vector.y / vector2.y

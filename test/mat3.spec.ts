@@ -1,12 +1,12 @@
 import { expect } from 'chai'
 import 'mocha'
 
-import mat3 from '../src/mat3'
+import Mat3 from '../src/mat3'
 
-describe('mat3', () => {
+describe('Mat3', () => {
 
   it('transposes', () => {
-    const matrix = new mat3([
+    const matrix = new Mat3([
         1.0, 2.0, 3.0,
         4.0, 5.0, 6.0,
         7.0, 8.0, 9.0,

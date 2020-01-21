@@ -1,8 +1,9 @@
-import vec2 from './vec2'
+import Vec2 from './vec2'
 
-import { epsilon } from './constants'
+import { EPSILON } from './constants'
+import IMatrix from './Matrix'
 
-export default class mat2 {
+export default class Mat2 implements IMatrix {
 
     constructor(values?: number[]) {
         if (values !== undefined) {
@@ -12,13 +13,13 @@ export default class mat2 {
 
     private values = new Float32Array(4)
 
-    static readonly identity = new mat2().setIdentity()
+    static readonly identity = new Mat2().setIdentity()
 
     at(index: number): number {
         return this.values[index]
     }
 
-    init(values: number[]): mat2 {
+    init(values: number[]): Mat2 {
         for (let i = 0; i < 4; i++) {
             this.values[i] = values[i]
         }
@@ -32,8 +33,8 @@ export default class mat2 {
         }
     }
 
-    copy(dest?: mat2): mat2 {
-        if (!dest) { dest = new mat2() }
+    copy(dest?: Mat2): Mat2 {
+        if (!dest) { dest = new Mat2() }
 
         for (let i = 0; i < 4; i++) {
             dest.values[i] = this.values[i]
@@ -65,7 +66,7 @@ export default class mat2 {
         ]
     }
 
-    equals(matrix: mat2, threshold = epsilon): boolean {
+    equals(matrix: Mat2, threshold = EPSILON): boolean {
         for (let i = 0; i < 4; i++) {
             if (Math.abs(this.values[i] - matrix.at(i)) > threshold) {
                 return false
@@ -79,7 +80,7 @@ export default class mat2 {
         return this.values[0] * this.values[3] - this.values[2] * this.values[1]
     }
 
-    setIdentity(): mat2 {
+    setIdentity(): Mat2 {
         this.values[0] = 1
         this.values[1] = 0
         this.values[2] = 0
@@ -88,7 +89,7 @@ export default class mat2 {
         return this
     }
 
-    transpose(): mat2 {
+    transpose(): Mat2 {
         const temp = this.values[1]
 
         this.values[1] = this.values[2]
@@ -97,7 +98,7 @@ export default class mat2 {
         return this
     }
 
-    inverse(): mat2 {
+    inverse(): Mat2 {
         let det = this.determinant()
 
         if (!det) {
@@ -116,7 +117,7 @@ export default class mat2 {
         return this
     }
 
-    multiply(matrix: mat2): mat2 {
+    multiply(matrix: Mat2): Mat2 {
         const a11 = this.values[0]
         const a12 = this.values[1]
         const a21 = this.values[2]
@@ -130,7 +131,7 @@ export default class mat2 {
         return this
     }
 
-    rotate(angle: number): mat2 {
+    rotate(angle: number): Mat2 {
         const a11 = this.values[0]
         const a12 = this.values[1]
         const a21 = this.values[2]
@@ -147,7 +148,7 @@ export default class mat2 {
         return this
     }
 
-    multiplyVec2(vector: vec2, result: vec2): vec2 {
+    multiplyVec2(vector: Vec2, result: Vec2): Vec2 {
         const x = vector.x
         const y = vector.y
 
@@ -159,14 +160,14 @@ export default class mat2 {
 
             return result
         } else {
-            return new vec2([
+            return new Vec2([
                 x * this.values[0] + y * this.values[1],
                 x * this.values[2] + y * this.values[3],
             ])
         }
     }
 
-    scale(vector: vec2): mat2 {
+    scale(vector: Vec2): Mat2 {
         const a11 = this.values[0]
         const a12 = this.values[1]
         const a21 = this.values[2]
@@ -183,7 +184,7 @@ export default class mat2 {
         return this
     }
 
-    static product(m1: mat2, m2: mat2, result: mat2): mat2 {
+    static product(m1: Mat2, m2: Mat2, result: Mat2): Mat2 {
         const a11 = m1.at(0)
         const a12 = m1.at(1)
         const a21 = m1.at(2)
@@ -199,7 +200,7 @@ export default class mat2 {
 
             return result
         } else {
-            return new mat2([
+            return new Mat2([
                 a11 * m2.at(0) + a12 * m2.at(2),
                 a11 * m2.at(1) + a12 * m2.at(3),
                 a21 * m2.at(0) + a22 * m2.at(2),

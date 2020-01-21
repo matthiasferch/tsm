@@ -1,11 +1,11 @@
-import mat4 from './mat4'
-import quat from './quat'
-import vec2 from './vec2'
-import vec3 from './vec3'
+import Mat4 from './Mat4'
+import Quat from './Quat'
+import Vec2 from './Vec2'
+import Vec3 from './Vec3'
 
-import { epsilon } from './constants'
+import { EPSILON } from './constants'
 
-export default class mat3 {
+export default class Mat3 {
 
     constructor(values?: number[]) {
         if (values !== undefined) {
@@ -15,13 +15,13 @@ export default class mat3 {
 
     private values = new Float32Array(9)
 
-    static readonly identity = new mat3().setIdentity()
+    static readonly identity = new Mat3().setIdentity()
 
     at(index: number): number {
         return this.values[index]
     }
 
-    init(values: number[]): mat3 {
+    init(values: number[]): Mat3 {
         for (let i = 0; i < 9; i++) {
             this.values[i] = values[i]
         }
@@ -35,8 +35,8 @@ export default class mat3 {
         }
     }
 
-    copy(dest?: mat3): mat3 {
-        if (!dest) { dest = new mat3() }
+    copy(dest?: Mat3): Mat3 {
+        if (!dest) { dest = new Mat3() }
 
         for (let i = 0; i < 9; i++) {
             dest.values[i] = this.values[i]
@@ -70,7 +70,7 @@ export default class mat3 {
         ]
     }
 
-    equals(matrix: mat3, threshold = epsilon): boolean {
+    equals(matrix: Mat3, threshold = EPSILON): boolean {
         for (let i = 0; i < 9; i++) {
             if (Math.abs(this.values[i] - matrix.at(i)) > threshold) {
                 return false
@@ -98,7 +98,7 @@ export default class mat3 {
         return a00 * det01 + a01 * det11 + a02 * det21
     }
 
-    setIdentity(): mat3 {
+    setIdentity(): Mat3 {
         this.values[0] = 1
         this.values[1] = 0
         this.values[2] = 0
@@ -112,7 +112,7 @@ export default class mat3 {
         return this
     }
 
-    transpose(): mat3 {
+    transpose(): Mat3 {
         const temp01 = this.values[1]
         const temp02 = this.values[2]
         const temp12 = this.values[5]
@@ -127,7 +127,7 @@ export default class mat3 {
         return this
     }
 
-    inverse(): mat3 {
+    inverse(): Mat3 {
         const a00 = this.values[0]
         const a01 = this.values[1]
         const a02 = this.values[2]
@@ -163,7 +163,7 @@ export default class mat3 {
         return this
     }
 
-    multiply(matrix: mat3): mat3 {
+    multiply(matrix: Mat3): Mat3 {
         const a00 = this.values[0]
         const a01 = this.values[1]
         const a02 = this.values[2]
@@ -199,7 +199,7 @@ export default class mat3 {
         return this
     }
 
-    multiplyVec2(vector: vec2, result: vec2): vec2 {
+    multiplyVec2(vector: Vec2, result: Vec2): Vec2 {
         const x = vector.x
         const y = vector.y
 
@@ -211,14 +211,14 @@ export default class mat3 {
 
             return result
         } else {
-            return new vec2([
+            return new Vec2([
                 x * this.values[0] + y * this.values[3] + this.values[6],
                 x * this.values[1] + y * this.values[4] + this.values[7],
             ])
         }
     }
 
-    multiplyVec3(vector: vec3, result: vec3): vec3 {
+    multiplyVec3(vector: Vec3, result: Vec3): Vec3 {
         const x = vector.x
         const y = vector.y
         const z = vector.z
@@ -232,7 +232,7 @@ export default class mat3 {
 
             return result
         } else {
-            return new vec3([
+            return new Vec3([
                 x * this.values[0] + y * this.values[3] + z * this.values[6],
                 x * this.values[1] + y * this.values[4] + z * this.values[7],
                 x * this.values[2] + y * this.values[5] + z * this.values[8],
@@ -240,7 +240,7 @@ export default class mat3 {
         }
     }
 
-    toMat4(result: mat4): mat4 {
+    toMat4(result: Mat4): Mat4 {
         if (result) {
             result.init([
                 this.values[0],
@@ -266,7 +266,7 @@ export default class mat3 {
 
             return result
         } else {
-            return new mat4([
+            return new Mat4([
                 this.values[0],
                 this.values[1],
                 this.values[2],
@@ -290,7 +290,7 @@ export default class mat3 {
         }
     }
 
-    toQuat(): quat {
+    toQuat(): Quat {
         const m00 = this.values[0]
         const m01 = this.values[1]
         const m02 = this.values[2]
@@ -328,7 +328,7 @@ export default class mat3 {
         const biggestVal = Math.sqrt(fourBiggestSquaredMinus1 + 1) * 0.5
         const mult = 0.25 / biggestVal
 
-        const result = new quat()
+        const result = new Quat()
 
         switch (biggestIndex) {
             case 0:
@@ -371,7 +371,7 @@ export default class mat3 {
         return result
     }
 
-    rotate(angle: number, axis: vec3): mat3 {
+    rotate(angle: number, axis: Vec3): Mat3 {
         let x = axis.x
         let y = axis.y
         let z = axis.z
@@ -429,7 +429,7 @@ export default class mat3 {
         return this
     }
 
-    static product(m1: mat3, m2: mat3, result: mat3): mat3 {
+    static product(m1: Mat3, m2: Mat3, result: Mat3): Mat3 {
         const a00 = m1.at(0)
         const a01 = m1.at(1)
         const a02 = m1.at(2)
@@ -467,7 +467,7 @@ export default class mat3 {
 
             return result
         } else {
-            return new mat3([
+            return new Mat3([
                 b00 * a00 + b01 * a10 + b02 * a20,
                 b00 * a01 + b01 * a11 + b02 * a21,
                 b00 * a02 + b01 * a12 + b02 * a22,

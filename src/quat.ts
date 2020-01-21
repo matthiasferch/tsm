@@ -1,10 +1,10 @@
-import mat3 from './mat3'
-import mat4 from './mat4'
-import vec3 from './vec3'
+import Mat3 from './Mat3'
+import Mat4 from './Mat4'
+import Vec3 from './Vec3'
 
-import { epsilon } from './constants'
+import { EPSILON } from './constants'
 
-export default class quat {
+export default class Quat {
 
     get x(): number {
         return this.values[0]
@@ -88,7 +88,7 @@ export default class quat {
 
     private values = new Float32Array(4)
 
-    static readonly identity = new quat().setIdentity()
+    static readonly identity = new Quat().setIdentity()
 
     at(index: number): number {
         return this.values[index]
@@ -100,8 +100,8 @@ export default class quat {
         }
     }
 
-    copy(dest?: quat): quat {
-        if (!dest) { dest = new quat() }
+    copy(dest?: Quat): Quat {
+        if (!dest) { dest = new Quat() }
 
         for (let i = 0; i < 4; i++) {
             dest.values[i] = this.values[i]
@@ -132,7 +132,7 @@ export default class quat {
         return Math.asin(2.0 * (this.x * this.z - this.w * this.y))
     }
 
-    equals(vector: quat, threshold = epsilon): boolean {
+    equals(vector: Quat, threshold = EPSILON): boolean {
         for (let i = 0; i < 4; i++) {
             if (Math.abs(this.values[i] - vector.at(i)) > threshold) {
                 return false
@@ -142,7 +142,7 @@ export default class quat {
         return true
     }
 
-    setIdentity(): quat {
+    setIdentity(): Quat {
         this.x = 0
         this.y = 0
         this.z = 0
@@ -151,7 +151,7 @@ export default class quat {
         return this
     }
 
-    calculateW(): quat {
+    calculateW(): Quat {
         const x = this.x
         const y = this.y
         const z = this.z
@@ -161,8 +161,8 @@ export default class quat {
         return this
     }
 
-    inverse(): quat {
-        const dot = quat.dot(this, this)
+    inverse(): Quat {
+        const dot = Quat.dot(this, this)
 
         if (!dot) {
             this.xyzw = [0, 0, 0, 0]
@@ -180,7 +180,7 @@ export default class quat {
         return this
     }
 
-    conjugate(): quat {
+    conjugate(): Quat {
         this.values[0] *= -1
         this.values[1] *= -1
         this.values[2] *= -1
@@ -197,7 +197,7 @@ export default class quat {
         return Math.sqrt(x * x + y * y + z * z + w * w)
     }
 
-    normalize(dest?: quat): quat {
+    normalize(dest?: Quat): Quat {
         if (!dest) { dest = this }
 
         const x = this.x
@@ -226,7 +226,7 @@ export default class quat {
         return dest
     }
 
-    add(other: quat): quat {
+    add(other: Quat): Quat {
         for (let i = 0; i < 4; i++) {
             this.values[i] += other.at(i)
         }
@@ -234,7 +234,7 @@ export default class quat {
         return this
     }
 
-    multiply(other: quat): quat {
+    multiply(other: Quat): Quat {
         const q1x = this.values[0]
         const q1y = this.values[1]
         const q1z = this.values[2]
@@ -253,8 +253,8 @@ export default class quat {
         return this
     }
 
-    multiplyVec3(vector: vec3, dest?: vec3): vec3 {
-        if (!dest) { dest = new vec3() }
+    multiplyVec3(vector: Vec3, dest?: Vec3): Vec3 {
+        if (!dest) { dest = new Vec3() }
 
         const x = vector.x
         const y = vector.y
@@ -277,8 +277,8 @@ export default class quat {
         return dest
     }
 
-    toMat3(dest?: mat3): mat3 {
-        if (!dest) { dest = new mat3() }
+    toMat3(dest?: Mat3): Mat3 {
+        if (!dest) { dest = new Mat3() }
 
         const x = this.x
         const y = this.y
@@ -316,8 +316,8 @@ export default class quat {
         return dest
     }
 
-    toMat4(dest?: mat4): mat4 {
-        if (!dest) { dest = new mat4() }
+    toMat4(dest?: Mat4): Mat4 {
+        if (!dest) { dest = new Mat4() }
 
         const x = this.x
         const y = this.y
@@ -363,12 +363,12 @@ export default class quat {
         return dest
     }
 
-    static dot(q1: quat, q2: quat): number {
+    static dot(q1: Quat, q2: Quat): number {
         return q1.x * q2.x + q1.y * q2.y + q1.z * q2.z + q1.w * q2.w
     }
 
-    static sum(q1: quat, q2: quat, dest?: quat): quat {
-        if (!dest) { dest = new quat() }
+    static sum(q1: Quat, q2: Quat, dest?: Quat): Quat {
+        if (!dest) { dest = new Quat() }
 
         dest.x = q1.x + q2.x
         dest.y = q1.y + q2.y
@@ -378,8 +378,8 @@ export default class quat {
         return dest
     }
 
-    static product(q1: quat, q2: quat, dest?: quat): quat {
-        if (!dest) { dest = new quat() }
+    static product(q1: Quat, q2: Quat, dest?: Quat): Quat {
+        if (!dest) { dest = new Quat() }
 
         const q1x = q1.x
         const q1y = q1.y
@@ -399,8 +399,8 @@ export default class quat {
         return dest
     }
 
-    static cross(q1: quat, q2: quat, dest?: quat): quat {
-        if (!dest) { dest = new quat() }
+    static cross(q1: Quat, q2: Quat, dest?: Quat): Quat {
+        if (!dest) { dest = new Quat() }
 
         const q1x = q1.x
         const q1y = q1.y
@@ -420,8 +420,8 @@ export default class quat {
         return dest
     }
 
-    static shortMix(q1: quat, q2: quat, time: number, dest?: quat): quat {
-        if (!dest) { dest = new quat() }
+    static shortMix(q1: Quat, q2: Quat, time: number, dest?: Quat): Quat {
+        if (!dest) { dest = new Quat() }
 
         if (time <= 0.0) {
             dest.xyzw = q1.xyzw
@@ -433,7 +433,7 @@ export default class quat {
             return dest
         }
 
-        let cos = quat.dot(q1, q2)
+        let cos = Quat.dot(q1, q2)
         const q2a = q2.copy()
 
         if (cos < 0.0) {
@@ -465,8 +465,8 @@ export default class quat {
         return dest
     }
 
-    static mix(q1: quat, q2: quat, time: number, dest?: quat): quat {
-        if (!dest) { dest = new quat() }
+    static mix(q1: Quat, q2: Quat, time: number, dest?: Quat): Quat {
+        if (!dest) { dest = new Quat() }
 
         const cosHalfTheta = q1.x * q2.x + q1.y * q2.y + q1.z * q2.z + q1.w * q2.w
 
@@ -499,8 +499,8 @@ export default class quat {
         return dest
     }
 
-    static fromAxisAngle(axis: vec3, angle: number, dest?: quat): quat {
-        if (!dest) { dest = new quat() }
+    static fromAxisAngle(axis: Vec3, angle: number, dest?: Quat): Quat {
+        if (!dest) { dest = new Quat() }
 
         angle *= 0.5
         const sin = Math.sin(angle)

@@ -1,10 +1,10 @@
-import mat3 from './mat3'
-import vec3 from './vec3'
-import vec4 from './vec4'
+import Mat3 from './Mat3'
+import Vec3 from './Vec3'
+import Vec4 from './Vec4'
 
-import { epsilon } from './constants'
+import { EPSILON } from './constants'
 
-export default class mat4 {
+export default class Mat4 {
 
     constructor(values?: number[]) {
         if (values !== undefined) {
@@ -14,13 +14,13 @@ export default class mat4 {
 
     private values = new Float32Array(16)
 
-    static readonly identity = new mat4().setIdentity()
+    static readonly identity = new Mat4().setIdentity()
 
     at(index: number): number {
         return this.values[index]
     }
 
-    init(values: number[]): mat4 {
+    init(values: number[]): Mat4 {
         for (let i = 0; i < 16; i++) {
             this.values[i] = values[i]
         }
@@ -34,8 +34,8 @@ export default class mat4 {
         }
     }
 
-    copy(dest?: mat4): mat4 {
-        if (!dest) { dest = new mat4() }
+    copy(dest?: Mat4): Mat4 {
+        if (!dest) { dest = new Mat4() }
 
         for (let i = 0; i < 16; i++) {
             dest.values[i] = this.values[i]
@@ -71,7 +71,7 @@ export default class mat4 {
         ]
     }
 
-    equals(matrix: mat4, threshold = epsilon): boolean {
+    equals(matrix: Mat4, threshold = EPSILON): boolean {
         for (let i = 0; i < 16; i++) {
             if (Math.abs(this.values[i] - matrix.at(i)) > threshold) {
                 return false
@@ -115,7 +115,7 @@ export default class mat4 {
         return (det00 * det11 - det01 * det10 + det02 * det09 + det03 * det08 - det04 * det07 + det05 * det06)
     }
 
-    setIdentity(): mat4 {
+    setIdentity(): Mat4 {
         this.values[0] = 1
         this.values[1] = 0
         this.values[2] = 0
@@ -136,7 +136,7 @@ export default class mat4 {
         return this
     }
 
-    transpose(): mat4 {
+    transpose(): Mat4 {
         const temp01 = this.values[1]
         const temp02 = this.values[2]
         const temp03 = this.values[3]
@@ -160,7 +160,7 @@ export default class mat4 {
         return this
     }
 
-    inverse(): mat4 {
+    inverse(): Mat4 {
         const a00 = this.values[0]
         const a01 = this.values[1]
         const a02 = this.values[2]
@@ -219,7 +219,7 @@ export default class mat4 {
         return this
     }
 
-    multiply(matrix: mat4): mat4 {
+    multiply(matrix: Mat4): Mat4 {
         const a00 = this.values[0]
         const a01 = this.values[1]
         const a02 = this.values[2]
@@ -280,20 +280,20 @@ export default class mat4 {
         return this
     }
 
-    multiplyVec3(vector: vec3): vec3 {
+    multiplyVec3(vector: Vec3): Vec3 {
         const x = vector.x
         const y = vector.y
         const z = vector.z
 
-        return new vec3([
+        return new Vec3([
             this.values[0] * x + this.values[4] * y + this.values[8] * z + this.values[12],
             this.values[1] * x + this.values[5] * y + this.values[9] * z + this.values[13],
             this.values[2] * x + this.values[6] * y + this.values[10] * z + this.values[14],
         ])
     }
 
-    multiplyVec4(vector: vec4, dest?: vec4): vec4 {
-        if (!dest) { dest = new vec4() }
+    multiplyVec4(vector: Vec4, dest?: Vec4): Vec4 {
+        if (!dest) { dest = new Vec4() }
 
         const x = vector.x
         const y = vector.y
@@ -308,8 +308,8 @@ export default class mat4 {
         return dest
     }
 
-    toMat3(): mat3 {
-        return new mat3([
+    toMat3(): Mat3 {
+        return new Mat3([
             this.values[0],
             this.values[1],
             this.values[2],
@@ -322,7 +322,7 @@ export default class mat4 {
         ])
     }
 
-    toInverseMat3(): mat3 {
+    toInverseMat3(): Mat3 {
         const a00 = this.values[0]
         const a01 = this.values[1]
         const a02 = this.values[2]
@@ -345,7 +345,7 @@ export default class mat4 {
 
         det = 1.0 / det
 
-        return new mat3([
+        return new Mat3([
             det01 * det,
             (-a22 * a01 + a02 * a21) * det,
             (a12 * a01 - a02 * a11) * det,
@@ -358,7 +358,7 @@ export default class mat4 {
         ])
     }
 
-    translate(vector: vec3): mat4 {
+    translate(vector: Vec3): Mat4 {
         const x = vector.x
         const y = vector.y
         const z = vector.z
@@ -371,7 +371,7 @@ export default class mat4 {
         return this
     }
 
-    scale(vector: vec3): mat4 {
+    scale(vector: Vec3): Mat4 {
         const x = vector.x
         const y = vector.y
         const z = vector.z
@@ -394,7 +394,7 @@ export default class mat4 {
         return this
     }
 
-    rotate(angle: number, axis: vec3): mat4 {
+    rotate(angle: number, axis: Vec3): Mat4 {
         let x = axis.x
         let y = axis.y
         let z = axis.z
@@ -462,12 +462,12 @@ export default class mat4 {
         return this
     }
 
-    static frustum(left: number, right: number, bottom: number, top: number, near: number, far: number): mat4 {
+    static frustum(left: number, right: number, bottom: number, top: number, near: number, far: number): Mat4 {
         const rl = (right - left)
         const tb = (top - bottom)
         const fn = (far - near)
 
-        return new mat4([
+        return new Mat4([
             (near * 2) / rl,
             0,
             0,
@@ -490,19 +490,19 @@ export default class mat4 {
         ])
     }
 
-    static perspective(fov: number, aspect: number, near: number, far: number): mat4 {
+    static perspective(fov: number, aspect: number, near: number, far: number): Mat4 {
         const top = near * Math.tan(fov * Math.PI / 360.0)
         const right = top * aspect
 
-        return mat4.frustum(-right, right, -top, top, near, far)
+        return Mat4.frustum(-right, right, -top, top, near, far)
     }
 
-    static orthographic(left: number, right: number, bottom: number, top: number, near: number, far: number): mat4 {
+    static orthographic(left: number, right: number, bottom: number, top: number, near: number, far: number): Mat4 {
         const rl = (right - left)
         const tb = (top - bottom)
         const fn = (far - near)
 
-        return new mat4([
+        return new Mat4([
             2 / rl,
             0,
             0,
@@ -525,17 +525,17 @@ export default class mat4 {
         ])
     }
 
-    static lookAt(position: vec3, target: vec3, up: vec3 = vec3.up): mat4 {
+    static lookAt(position: Vec3, target: Vec3, up: Vec3 = Vec3.up): Mat4 {
         if (position.equals(target)) {
             return this.identity
         }
 
-        const z = vec3.difference(position, target).normalize()
+        const z = Vec3.difference(position, target).normalize()
 
-        const x = vec3.cross(up, z).normalize()
-        const y = vec3.cross(z, x).normalize()
+        const x = Vec3.cross(up, z).normalize()
+        const y = Vec3.cross(z, x).normalize()
 
-        return new mat4([
+        return new Mat4([
             x.x,
             y.x,
             z.x,
@@ -551,14 +551,14 @@ export default class mat4 {
             z.z,
             0,
 
-            -vec3.dot(x, position),
-            -vec3.dot(y, position),
-            -vec3.dot(z, position),
+            -Vec3.dot(x, position),
+            -Vec3.dot(y, position),
+            -Vec3.dot(z, position),
             1,
         ])
     }
 
-    static product(m1: mat4, m2: mat4, result: mat4): mat4 {
+    static product(m1: Mat4, m2: Mat4, result: Mat4): Mat4 {
         const a00 = m1.at(0)
         const a01 = m1.at(1)
         const a02 = m1.at(2)
@@ -618,7 +618,7 @@ export default class mat4 {
 
             return result
         } else {
-            return new mat4([
+            return new Mat4([
                 b00 * a00 + b01 * a10 + b02 * a20 + b03 * a30,
                 b00 * a01 + b01 * a11 + b02 * a21 + b03 * a31,
                 b00 * a02 + b01 * a12 + b02 * a22 + b03 * a32,
