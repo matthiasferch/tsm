@@ -1,12 +1,12 @@
 {
   "extends": "tslint:latest",
   "rules": {
-    "class-name": false,
+    "class-name": true,
     "prefer-const": true,
     "no-require-imports": true,
     "semicolon": [
       true,
-      "never"
+      "always"
     ],
     "quotemark": [
       true,
