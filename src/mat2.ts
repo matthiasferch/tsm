@@ -3,7 +3,7 @@ import Vec2 from './vec2'
 import { EPSILON } from './constants'
 import IMatrix from './Matrix'
 
-export default class Mat2 implements IMatrix {
+export default class Mat2 {
 
     constructor(values?: number[]) {
         if (values !== undefined) {

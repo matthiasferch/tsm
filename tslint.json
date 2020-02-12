@@ -4,6 +4,8 @@
     "class-name": true,
     "prefer-const": true,
     "no-require-imports": true,
+    "curly": false,
+    "variable-name": false,
     "semicolon": [
       true,
       "always"
@@ -17,23 +19,7 @@
       true,
       "no-public"
     ],
-    "member-ordering": [
-      true,
-      {
-        "order": [
-          "constructor",
-          "public-instance-field",
-          "private-instance-field",
-          "public-static-field",
-          "private-static-field",
-          "public-instance-method",
-          "protected-instance-method",
-          "private-instance-method",
-          "public-static-method",
-          "private-static-method"
-        ]
-      }
-    ],
+    "member-ordering": false,
     "object-literal-sort-keys": false,
     "adjacent-overload-signatures": false,
     "no-implicit-dependencies": [
