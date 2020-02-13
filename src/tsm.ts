@@ -1,7 +1,11 @@
 /*
  * Copyright (c) 2012, 2018 Matthias Ferch
+ * Copyright (c) 2020 Florent Catiau-Tristant
  *
- * Project homepage: https://github.com/matthiasferch/tsm
+ * Original library: https://github.com/matthiasferch/tsm
+ *
+ * Improved by Florent Catiau-Tristant
+ * Project homepage: https://github.com/kapcash/tsm
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -31,4 +35,4 @@ export {
     Vector,
     Matrix,
     Quat,
-}
+};
