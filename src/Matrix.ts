@@ -1,5 +1,3 @@
-import IMatrix from './IMatrix';
-
 export default class Matrix {
 
     /** Number of rows of the matrix */
