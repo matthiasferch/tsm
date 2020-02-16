@@ -1,14 +1,11 @@
 export default class Vector {
 
-    /** Number of values in the vector */
-    private _rows: number;
     /** Values of the vector */
     private _values: number[];
 
-    constructor(rows: number, values?: number[]) {
-        this._rows = rows;
+    constructor(values?: number[]) {
         // Create matrix filled with 0 by default
-        this._values = new Array<number>(rows).fill(0);
+        this._values = new Array<number>((values || [0]).length).fill(0);
 
         if (values) {
             this.values = values;
@@ -16,8 +13,9 @@ export default class Vector {
     }
 
     get rows() {
-        return this._rows;
+        return this.values.length;
     }
+
     get values() {
         return this._values;
     }
@@ -54,7 +52,8 @@ export default class Vector {
      * Add an new row to the matrix, filled with 0
      */
     addAValue(): Vector {
-        return new Vector(this.rows + 1, this.values);
+        this.values.push(0);
+        return new Vector(this.values);
     }
 
     /**
@@ -71,7 +70,7 @@ export default class Vector {
      * @return A new vector whose all values have the opposed sign
      */
     negate(): Vector {
-        return new Vector(this.rows, this.values.map((val) => -val));
+        return new Vector(this.values.map((val) => -val));
     }
 
     /** Get the length of the vector */
@@ -82,7 +81,6 @@ export default class Vector {
     /** Get the squared length of the vector */
     squaredLength(): number {
         return this.dot(this);
-        // return this.values.reduce((res, val) => res + (val * val), 0);
     }
 
     /**
@@ -127,7 +125,10 @@ export default class Vector {
      */
     divide(vector: Vector): Vector {
         if (this.rows !== vector.rows) throw new Error("Vectors don't have the same dimension!");
-        return this.operateOnAllValues((val, i) => (val / vector.at(i)));
+        return this.operateOnAllValues((val, i) => {
+            if (vector.at(i) === 0) return val;
+            return (val / vector.at(i));
+        });
     }
 
     /**
@@ -144,7 +145,7 @@ export default class Vector {
      * @return a new Vector with the operation done on all its values
      */
     private operateOnAllValues(operation: (val: number, index: number) => number): Vector {
-        return new Vector(this.rows, this.values.map(operation));
+        return new Vector(this.values.map(operation));
     }
 
     /**
@@ -153,7 +154,7 @@ export default class Vector {
      */
     normalize(): Vector {
         const vectorLength = this.length();
-        return new Vector(this.rows, this.values.map((val) => val / vectorLength));
+        return this.operateOnAllValues((val) => val / vectorLength);
     }
 
     /**
@@ -165,7 +166,7 @@ export default class Vector {
     }
 
     /**
-     * Computes the cross product of vectors s
+     * Computes the cross product of vectors
      * @param vector The operand vector
      */
     cross(vector: Vector): Vector {
@@ -173,10 +174,10 @@ export default class Vector {
         crossValues[0] = this.at(1) * vector.at(2) - this.at(2) * vector.at(1);
         crossValues[1] = this.at(2) * vector.at(0) - this.at(0) * vector.at(2);
         crossValues[2] = this.at(0) * vector.at(1) - this.at(1) * vector.at(0);
-        return new Vector(3, crossValues);
+        return new Vector(crossValues);
     }
 
     mix(vector: Vector, time: number): Vector {
-        return new Vector(this.rows, this.values.map((val, i) => val + time * (vector.at(i) - val)));
+        return new Vector(this.values.map((val, i) => val + time * (vector.at(i) - val)));
     }
 }
