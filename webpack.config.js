@@ -1,8 +1,9 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/tsm.ts',
+  entry: './src/ts-matrix.ts',
   devtool: 'inline-source-map',
+  mode: 'development',
   module: {
     rules: [
       {
@@ -16,8 +17,9 @@ module.exports = {
     extensions: ['.ts']
   },
   output: {
-    library: 'tsm',
-    filename: 'tsm.js',
+    library: 'tsmatrix',
+    libraryTarget: 'umd',
+    filename: 'tsmatrix.js',
     path: path.resolve(__dirname, 'dist')
   }
 };

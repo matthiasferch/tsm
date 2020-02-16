@@ -5,7 +5,7 @@
           "dom",
           "es2015"
         ],
-        "module": "commonJS",
+        "module": "ESNext",
         "moduleResolution": "node",
         "outDir": "lib",
         "declaration": true,

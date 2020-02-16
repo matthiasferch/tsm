@@ -1,11 +1,11 @@
 {
-  "name": "tsm",
-  "version": "0.8.0",
-  "description": "A TypeScript vector and matrix math library",
-  "author": "Matthias Ferch",
-  "module": "dist/tsm.js",
-  "main": "dist/tsm.js",
-  "typings": "lib/tsm.d.ts",
+  "name": "ts-matrix",
+  "version": "1.0.0",
+  "description": "A Vector and Matrix math library.",
+  "author": "Florent Catiau-Tristant / Matthias Ferch",
+  "module": "dist/tsmatrix.js",
+  "main": "dist/tsmatrix.js",
+  "typings": "lib/ts-matrix.d.ts",
   "scripts": {
     "prepare": "npm run build",
     "test": "mocha -r ts-node/register test/**/*.spec.ts",

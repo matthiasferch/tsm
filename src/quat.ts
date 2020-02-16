@@ -1,9 +1,9 @@
 import { EPSILON } from './constants';
-import { Vector } from './tsm';
+import { Vector } from './ts-matrix';
 
 /**
  * Class representing a Math Quat
- * 
+ *
  * TODO: To refactor with 'Matrix.ts' style.
  */
 export default class Quat {
