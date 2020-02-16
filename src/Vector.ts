@@ -170,6 +170,7 @@ export default class Vector {
      * @param vector The operand vector
      */
     cross(vector: Vector): Vector {
+        if (this.rows < 3 || vector.rows < 3) throw new Error('Cross product is possible on 3D vectors only');
         const crossValues = new Array<number>(3);
         crossValues[0] = this.at(1) * vector.at(2) - this.at(2) * vector.at(1);
         crossValues[1] = this.at(2) * vector.at(0) - this.at(0) * vector.at(2);
