@@ -13,10 +13,10 @@ npm install --save ts-matrix
 yarn add ts-matrix
 ```
 
-Or add the cdn link to your html
+Or add the [unpkg](https://unpkg.com/) cdn link to your html
 
 ```html
-<link src="TODO/ts-matrix.js">
+<link src="https://unpkg.com/ts-matrix@1.0.0/dist/tsmatrix.js">
 ```
 
 The library is built as a UMD module, so you can import from both frontend-script (AMD) and NodeJS (CommonJS).
