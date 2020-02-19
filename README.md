@@ -1,56 +1,44 @@
 ts-matrix: A Typescript vector and matrix math library
 =================================================
 
-ts-matrix is a a collection of vector, matrix and quaternion classes written in Typescript. 
+ts-matrix is a collection of vector, matrix and quaternion classes written in Typescript. 
 
-General design notes
+How to install it
+=================
+
+Using `npm` or `yarn`
+
+```bash
+npm install --save ts-matrix
+yarn add ts-matrix
+```
+
+Or add the cdn link to your html
+
+```html
+<link src="TODO/ts-matrix.js">
+```
+
+The library is built as a UMD module, so you can import from both frontend-script (AMD) and NodeJS (CommonJS).
+
+Usage
 --------------------
 
-Swizzle operators return numeric arrays, not vector instances:
+Import the module, from Typescript or ES6 javascript.
 
-    let v = new Vec4([1, 2, 3, 4]);
-    let n = v.xyz; // n = [1, 2, 3]
+```typescript
+import { Vector, Matrix } from 'tsmatrix';
+```
 
-If, instead, you want to create a new instance of a vector or a matrix, use the copy() method:
+Then use the methods as you want :)
 
-    let v1 = new Vec4([1, 2, 3, 4]);
-    let v2 = v1.copy();
+```typescript
+const v1 = new Vector([1, 2]);
+const v2 = new Vector([3, 1]);
+v1.add(v2);
+// ==> [4, 3]
+```
 
-You can also initialize a new vector with the values of another:
+Most operation return a new Vector instance.
 
-    let v1 = new Vec4([1, 2, 3, 4]);
-    let v2 = new Vec4(v1.xyzw);
-
-Or copy the values of one vector to another using the swizzle operators or the copy() method:
-
-    v2.xyzw = v1.xyzw; // same as v1.copy(v2)
-
-The four basic arithmetic operations can be performed on vector instances or using static methods:
-
-    let v1 = new Vec4([1, 2, 3, 4]);
-    let v2 = new Vec4([5, 6, 7, 8]);
-
-    let v3 = Vec4.product(v1, v2); // returns a new Vec4 instance
-
-    v1.multiply(v2); // writes the result of the multiplication into v1
-    v2.multiply(v1); // writes the result of the multiplication into v2
-
-The reason for all of these different ways of doing the same thing is that object allocation in Javascript is slow and dynamic allocation shoud therefore be reduced to a minimum.
-
-For this reason, static methods offer an optional destination parameter:
-
-    let v3 = Vec3.cross(v1, v2) // allocates a new instance of Vec3
-
-is the same as:
-
-    let v3 = new Vec3();
-    Vec3.cross(v1, v2, v3) // writes into the existing instance
-
-Matrices do not have swizzle operators. Instead, they provide the all(), row() and col() methods:
-
-    let m = new Mat2([1, 2, 3, 4]);
-
-    let all = m.all();  // [1, 2, 3, 4]  
-    let row = m.row(0); // [1, 2]
-    let col = m.col(0); // [1, 3] 
-
+If you use typescript, the declarations files are available with self documentation.
