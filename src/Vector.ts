@@ -181,4 +181,12 @@ export default class Vector {
     mix(vector: Vector, time: number): Vector {
         return new Vector(this.values.map((val, i) => val + time * (vector.at(i) - val)));
     }
+
+    static get360angle(Va: Vector, Vb: Vector) {
+        if (Va.rows !== 3 || Vb.rows !== 3) throw new Error('Vectors must be in 3D!. You can add a 1 dimension if it is missing.');
+        return -Math.atan2(
+          Vb.cross(Va).dot(new Vector([0, 0, 1]).normalize()),
+          Va.dot(Vb)
+        );
+      }
 }
