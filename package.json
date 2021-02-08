@@ -1,15 +1,19 @@
 {
   "name": "ts-matrix",
   "version": "1.0.0",
-  "description": "A Vector and Matrix math library.",
-  "author": "Florent Catiau-Tristant / Matthias Ferch",
+  "description": "A Vector and Matrix math utility library.",
+  "author": "Florent Catiau-Tristant",
   "module": "dist/tsmatrix.js",
   "main": "dist/tsmatrix.js",
+  "homepage": "https://github.com/Kapcash/ts-matrix#readme",
+  "bugs": {
+    "url": "https://github.com/Kapcash/ts-matrix/issues"
+  },
   "typings": "lib/ts-matrix.d.ts",
   "scripts": {
     "prepare": "npm run build",
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
-    "lint": "tslint src/*.ts -t verbose",
+    "lint": "eslint src/*.ts",
     "build": "webpack",
     "watch": "webpack --watch"
   },
