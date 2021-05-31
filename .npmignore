@@ -1,0 +1,5 @@
+src/
+test/
+.vscode/
+tsconfig.json
+webpack.config.js
