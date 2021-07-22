@@ -12,7 +12,7 @@
   "typings": "lib/ts-matrix.d.ts",
   "scripts": {
     "prepare": "npm run build",
-    "test": "mocha -r ts-node/register test/**/*.spec.ts",
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register test/**/*.spec.ts",
     "lint": "eslint src/*.ts",
     "build": "webpack",
     "watch": "webpack --watch"
