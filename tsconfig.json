@@ -1,11 +1,11 @@
 {
     "compilerOptions": {
-        "target": "esnext",
+        "target": "es5",
         "lib": [
           "dom",
           "es2015"
         ],
-        "module": "ESNext",
+        "module": "esnext",
         "moduleResolution": "node",
         "outDir": "lib",
         "declaration": true,
@@ -15,6 +15,8 @@
         "src/**/*"
     ],
     "exclude": [
-        "./test/**/*.spec.ts"
+        "./node_modules",
+        "./test/",
+        "./dist/"
     ],
 }
