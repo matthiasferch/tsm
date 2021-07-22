@@ -27,12 +27,6 @@
  *    distribution.
  */
 
-import Matrix from './Matrix';
-import Quat from './Quat';
-import Vector from './Vector';
-
-export {
-    Vector,
-    Matrix,
-    Quat,
-};
+export { default as Matrix } from './Matrix';
+export { default as Vector } from './Vector';
+export { default as Quat } from './quat';

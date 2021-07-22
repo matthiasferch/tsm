@@ -12,16 +12,32 @@ export default class Quat {
         return this.values[0];
     }
 
+    set x(value: number) {
+        this.values[0] = value;
+    }
+
     get y(): number {
         return this.values[1];
+    }
+
+    set y(value: number) {
+        this.values[1] = value;
     }
 
     get z(): number {
         return this.values[2];
     }
 
+    set z(value: number) {
+        this.values[2] = value;
+    }
+    
     get w(): number {
         return this.values[3];
+    }
+    
+    set w(value: number) {
+        this.values[3] = value;
     }
 
     get xy(): [number, number] {
@@ -31,12 +47,24 @@ export default class Quat {
         ];
     }
 
+    set xy(values: [number, number]) {
+        this.values[0] = values[0];
+        this.values[1] = values[1];
+    }
+
+
     get xyz(): [number, number, number] {
         return [
             this.values[0],
             this.values[1],
             this.values[2],
         ];
+    }
+
+    set xyz(values: [number, number, number]) {
+        this.values[0] = values[0];
+        this.values[1] = values[1];
+        this.values[2] = values[2];
     }
 
     get xyzw(): [number, number, number, number] {
@@ -46,33 +74,6 @@ export default class Quat {
             this.values[2],
             this.values[3],
         ];
-    }
-
-    set x(value: number) {
-        this.values[0] = value;
-    }
-
-    set y(value: number) {
-        this.values[1] = value;
-    }
-
-    set z(value: number) {
-        this.values[2] = value;
-    }
-
-    set w(value: number) {
-        this.values[3] = value;
-    }
-
-    set xy(values: [number, number]) {
-        this.values[0] = values[0];
-        this.values[1] = values[1];
-    }
-
-    set xyz(values: [number, number, number]) {
-        this.values[0] = values[0];
-        this.values[1] = values[1];
-        this.values[2] = values[2];
     }
 
     set xyzw(values: [number, number, number, number]) {
