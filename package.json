@@ -1,6 +1,6 @@
 {
   "name": "ts-matrix",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A Vector and Matrix math utility library.",
   "author": "Florent Catiau-Tristant",
   "module": "dist/tsmatrix.js",
