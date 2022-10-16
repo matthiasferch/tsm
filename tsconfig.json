@@ -1,22 +1,27 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "lib": [
-          "dom",
-          "es2015"
-        ],
-        "module": "esnext",
+        "target": "ES5",
+        "lib": ["ESNext"],
+        "module": "ESNext",
         "moduleResolution": "node",
-        "outDir": "lib",
+        "declarationDir": "lib",
+        "emitDeclarationOnly": true,
         "declaration": true,
-        "strict": true
+        "strict": true,
+        "sourceMap": true,
+        "isolatedModules": true,
+        "noImplicitReturns": true,
+        "skipLibCheck": true,
+        "types": [
+            "vitest/globals"
+        ]
     },
     "include": [
-        "src/**/*"
+        "src/**/*",
+        "test"
     ],
     "exclude": [
-        "./node_modules",
-        "./test/",
-        "./dist/"
+        "node_modules",
+        "dist"
     ],
 }

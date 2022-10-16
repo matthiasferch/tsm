@@ -8,10 +8,10 @@ export default class Matrix {
     private _values: number[][];
 
     constructor(rows: number, columns: number, values?: number[][]) {
-        this._rows = rows;
-        this._columns = columns;
+        this._rows = Math.max(rows, 1);
+        this._columns = Math.max(columns, 1);
         // Create matrix filled with 0 by default
-        this._values = new Array<number[]>(rows).fill([]).map(() => new Array<number>(columns).fill(0));
+        this._values = new Array<number[]>(this._rows).fill([]).map(() => new Array<number>(this._columns).fill(0));
 
         if (values) {
             this.values = values;
@@ -91,7 +91,7 @@ export default class Matrix {
      * Sets the matrix as an identity matrix
      */
     setAsIdentity() {
-        if (this.rows !== this.columns) throw new Error("The matrix isn't squared!");
+        if (this.rows !== this.columns) throw new Error("Dimension error! The matrix isn't squared!");
         this.values.forEach((row, i) => {
             row.forEach((c, j) => {
                 this.values[i][j] = i === j ? 1 : 0;
@@ -105,7 +105,7 @@ export default class Matrix {
      * @param dimension Dimension of the squared matrix
      */
     static identity(dimension: number): Matrix {
-        if (dimension < 1) throw Error('Matrix dimension must be positive.');
+        if (dimension < 1) throw Error('Dimension error! Matrix dimension must be positive.');
         return new Matrix(dimension, dimension).setAsIdentity();
     }
 
@@ -113,9 +113,10 @@ export default class Matrix {
      * Computes the product with another matrix
      * @param mat The second operand matrix
      * @throws Error if matrixA.columns != matrixB.rows
+     * @return A new Matrix, result of the multiplication
      */
     multiply(mat: Matrix): Matrix {
-        if (this.columns !== mat.rows) throw new Error("The operand matrix must have the same number of rows as 'this' matrix columns!");
+        if (this.columns !== mat.rows) throw new Error("Dimension error! The operand matrix must have the same number of rows as 'this' matrix columns!");
         const resMatrix = new Matrix(this.rows, mat.columns);
         resMatrix.values = resMatrix.values.map((row, i) => {
             return row.map((val, j) => {
@@ -130,7 +131,9 @@ export default class Matrix {
      * @throws Error if the matrix is not squared
      */
     determinant(): number {
-        if (this.rows !== this.columns) throw new Error("The matrix isn't squared!");
+        if (this.rows !== this.columns) throw new Error("Dimension error! The matrix isn't squared!");
+        if (this.rows === this.columns && this.columns === 1) { return this.values[0][0]; }
+
         let det = 0;
         let sign = 1;
         if (this.rows === 2) {
@@ -149,7 +152,7 @@ export default class Matrix {
      * Gets a cofactor matrix
      * @param row The row to omit in the matrix
      * @param col The column to omit in the matrix
-     * @return The cofactor matrix sized (n-1)x(n-1)
+     * @return The cofactor matrix sized (r-1)x(c-1)
      */
     getCofactor(row: number, col: number): Matrix {
         return new Matrix(this.rows - 1, this.columns - 1, this.values
@@ -171,19 +174,19 @@ export default class Matrix {
      * @return A new matrix inversed
      */
     inverse() {
-        if (this.rows !== this.columns) throw new Error("The matrix isn't squared!");
+        if (this.rows !== this.columns) throw new Error("Dimension error! The matrix isn't squared!");
         const det = this.determinant();
         if (det === 0) throw new Error("Determinant is 0, can't compute inverse.");
 
-        // Get cofactor matrix
-        let sign = -1;
-        const cofactor = new Matrix (this.rows, this.columns,
+        // Get cofactor matrix: i.e. for each matrix value, get the cofactor's determinant
+        let sign = -1; // starts at -1 so that next -1 multiplication will give +1 (first element's sign won't change)
+        const cofactorMatrix = new Matrix (this.rows, this.columns,
             this.values.map((row, i) => row.map((val, j) => {
                 sign *= -1;
                 return sign * this.getCofactor(i, j).determinant();
             })));
         // Transpose it
-        const transposedCofactor = cofactor.transpose();
+        const transposedCofactor = cofactorMatrix.transpose();
         // Compute inverse of transposed / determinant on each value
         return new Matrix(this.rows, this.columns,
             this.values.map((row, i) => row.map((val, j) => transposedCofactor.at(i, j) / det)));

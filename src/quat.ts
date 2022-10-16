@@ -1,5 +1,5 @@
 import { EPSILON } from './constants';
-import { Vector } from './ts-matrix';
+import Vector from './Vector';
 
 /**
  * Class representing a Math Quat
@@ -201,6 +201,7 @@ export default class Quat {
     }
 
     normalize(dest?: Quat): Quat {
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
         if (!dest) { dest = this; }
 
         const x = this.x;
