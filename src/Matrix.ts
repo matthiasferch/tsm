@@ -179,10 +179,9 @@ export default class Matrix {
         if (det === 0) throw new Error("Determinant is 0, can't compute inverse.");
 
         // Get cofactor matrix: i.e. for each matrix value, get the cofactor's determinant
-        let sign = -1; // starts at -1 so that next -1 multiplication will give +1 (first element's sign won't change)
         const cofactorMatrix = new Matrix (this.rows, this.columns,
             this.values.map((row, i) => row.map((val, j) => {
-                sign *= -1;
+                const sign = Math.pow(-1, i + j);
                 return sign * this.getCofactor(i, j).determinant();
             })));
         // Transpose it

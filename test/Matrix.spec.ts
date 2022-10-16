@@ -175,6 +175,25 @@ describe('Matrix class', () => {
         [12, -5, -2],
         [140, 65, 88]],
       ],
+      [
+        [[3, 2, 4, 5],
+        [6, 1, 3, 2],
+        [7, 3, 7, 5],
+        [6, 2, 2, 4]],
+      ],
+      [
+        [[3, -2, 4, 5],
+        [6, 1, -3, 2],
+        [-7, 3, -7, -5],
+        [6, -2, 2, -4]],
+      ],
+      [
+        [[3, -2, 4, 5, 7],
+        [6, 1, -3, 2, 4],
+        [-7, 3, -7, -5, 5],
+        [6, -2, 2, -4, 1],
+        [1, 5, 2, -7, -9]],
+      ],
     ])('should inverse matrix', (inputMatrix) => {
       const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
     
