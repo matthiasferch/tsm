@@ -17,7 +17,7 @@ Or add the [unpkg](https://unpkg.com/) cdn link to your html
 <script src="https://unpkg.com/ts-matrix">
 ```
 
-The library is built as a UMD module, so you can import from both frontend-script (AMD) and NodeJS (CommonJS).
+The library is built as an ECMAScript module (`.mjs` file), but it also exports a UMD version if needed.
 
 ## Usage
 
@@ -104,3 +104,11 @@ Static methods
 | method | description |
 |--------|-------------|
 | identity(dimension: number) | Returns a new squared identity Matrix |
+
+# Contributing
+
+Any contribution is welcome, whether it is an issue, PullRequest, or just a comment!
+
+*Made with love by Florent Catiau-Tristant (@kapcash)*
+
+<a href="https://www.buymeacoffee.com/kapcash" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
