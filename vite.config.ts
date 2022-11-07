@@ -5,6 +5,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   build: {
+    sourcemap: true,
     lib: {
       entry: path.resolve(__dirname, 'src/ts-matrix.ts'),
       name: 'ts-matrix',
