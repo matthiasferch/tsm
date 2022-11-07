@@ -17,6 +17,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "files:": [
+    "src",
     "dist",
     "lib"
   ],
