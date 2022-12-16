@@ -1,26 +1,33 @@
 {
-  "name": "tsm",
-  "version": "0.8.0",
-  "description": "A TypeScript vector and matrix math library",
-  "author": "Matthias Ferch",
-  "module": "src/tsm.js",
+  "name": "ts-matrix",
+  "version": "1.2.2",
+  "description": "A Vector and Matrix math utility library.",
+  "author": "Florent Catiau-Tristant",
+  "main": "./dist/ts-matrix.umd.js",
+  "module": "./dist/ts-matrix.mjs",
+  "homepage": "https://github.com/Kapcash/ts-matrix#readme",
+  "bugs": {
+    "url": "https://github.com/Kapcash/ts-matrix/issues"
+  },
+  "typings": "lib/ts-matrix.d.ts",
   "scripts": {
-    "test": "mocha -r ts-node/register test/**/*.spec.ts",
-    "lint": "tslint src/*.ts -t verbose",
-    "build": "webpack",
-    "watch": "webpack --watch"
+    "lint": "eslint --fix src/*.ts",
+    "build": "tsc --project tsconfig.build.json && vite build",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
+  "files:": [
+    "src",
+    "dist",
+    "lib"
+  ],
   "devDependencies": {
-    "@types/chai": "^4.1.4",
-    "@types/mocha": "^5.2.5",
-    "chai": "^4.1.2",
-    "mocha": "^5.2.0",
-    "ts-loader": "^5.1.0",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.11.0",
-    "typescript": "^3.0.3",
-    "webpack": "^4.18.0",
-    "webpack-cli": "^3.1.0"
-  },
-  "dependencies": {}
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
+    "@vitest/coverage-c8": "^0.24.3",
+    "eslint": "^8.25.0",
+    "typescript": "^4.8.4",
+    "vite": "^3.1.8",
+    "vitest": "^0.24.3"
+  }
 }

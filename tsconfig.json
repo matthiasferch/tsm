@@ -1,14 +1,28 @@
 {
+    "compilerOptions": {
+        "target": "ES5",
+        "lib": ["ESNext"],
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "outDir": "dist",
+        "declarationDir": "lib",
+        "emitDeclarationOnly": true,
+        "declaration": true,
+        "strict": true,
+        "sourceMap": true,
+        "isolatedModules": true,
+        "noImplicitReturns": true,
+        "skipLibCheck": true,
+        "types": [
+            "vitest/globals"
+        ]
+    },
     "include": [
-        "./src/**/*"
+        "src/**/*",
+        "test"
     ],
     "exclude": [
-        "./test/**/*.spec.ts"
+        "node_modules",
+        "dist"
     ],
-    "compilerOptions": {
-        "outDir": "./dist/",
-        "module": "commonjs",
-        "target": "es5",
-        "sourceMap": true,
-    }
 }

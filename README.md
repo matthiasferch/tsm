@@ -1,82 +1,114 @@
-tsm: A Typescript vector and matrix math library
-=================================================
+# ts-matrix: A Typescript vector and matrix math library
 
-tsm is a a collection of vector, matrix and quaternion classes written in Typescript. 
+`ts-matrix` is a collection of vector, matrix and quaternion classes written in Typescript with *no dependencies*.
 
-The library's design is influenced by both [gl-matrix](https://github.com/toji/gl-matrix) and [glm](https://github.com/g-truc/glm). 
+## How to install it
 
-What's special about tsm?
--------------------------
+Using `npm` or `yarn`
 
-- tsm makes use of Typescript's type annotations to reduce the number of possible bugs.
+```bash
+npm install --save ts-matrix
+yarn add ts-matrix
+```
 
-- tsm makes use of Javascript's new property definitions to enable GLSL-style swizzle operators:
+Or add the [unpkg](https://unpkg.com/) cdn link to your html
 
-        let v1 = new vec2();
-        let q1 = new quat();
+```html
+<script src="https://unpkg.com/ts-matrix">
+```
 
-        v1.xy = [0, 1];
-        q1.w = 1.0;
+The library is built as an ECMAScript module (`.mjs` file), but it also exports a UMD version if needed.
 
-- tsm offers both non-static and static methods for many operations:
+## Usage
 
-        let v1 = new vec3([1, 2, 3]);
-        let v2 = new vec3([4, 5, 6]);
+Import the module, from Typescript or ES6 javascript.
 
-        let v3 = vec3.sum(v1, v2);
-        let v4 = v1.copy().add(v2);
+```typescript
+import { Vector, Matrix } from 'ts-matrix';
+```
 
-        console.log(v3.equals(v4)); // output: "true"
+Then use the methods as you want :)
 
+```typescript
+const v1 = new Vector([1, 2]);
+const v2 = new Vector([3, 1]);
+v1.add(v2);
+// ==> [4, 3]
+```
 
-General design notes
---------------------
+Most operation return a new Vector instance.
 
-Swizzle operators return numeric arrays, not vector instances:
+If you use typescript, the declarations files are available with self documentation.
 
-    let v = new vec4([1, 2, 3, 4]);
-    let n = v.xyz; // n = [1, 2, 3]
+---------------------------------------------------------------------------------------
 
-If, instead, you want to create a new instance of a vector or a matrix, use the copy() method:
+## Documentation
 
-    let v1 = new vec4([1, 2, 3, 4]);
-    let v2 = v1.copy();
+### Vectors
 
-You can also initialize a new vector with the values of another:
+Instance methods
 
-    let v1 = new vec4([1, 2, 3, 4]);
-    let v2 = new vec4(v1.xyzw);
+| method | description |
+|--------|-------------|
+| at(row: number) | Get the value of a cell |
+| rows() | Returns Vector's size |
+| values() | Returns Vector values as an array |
+| reset()         | Sets all matrix values to 0 |
+| addAValue()     | Add a new 0 to the Vector |
+| addARow()       | Add a new empty row to the Matrix |
+| equals(vector: Vector)          | Checks equality between two vectors |
+| negate() | Negates the Vector (change all cells arithmetic sign). Returns a new instance. |
+| length()        | Returns the vectors length |
+| squaredLength()        | Returns the vectors squared length |
+| add(vector: Vector)     | Adds all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
+| substract(vector: Vector)     | Substracts all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
+| multiply(vector: Vector)     | Multiplies all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
+| divide(vector: Vector)     | Divides all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
+| scale(scale: number)     | Multiply all vector values by the given scale. Mutates current instance. |
+| normalize(scale: number)     | Computes the normalized Vector. Mutates current instance. |
+| dot(vector: Vector)     | Computes the dot product between two Vectors. |
+| cross(vector: Vector)     | Computes the cross product between two Vectors. Returns new instance |
+| mix(vector: Vector, time: number)     | Computes the mix product between two Vectors. Returns new instance |
 
-Or copy the values of one vector to another using the swizzle operators or the copy() method:
+Static methods
 
-    v2.xyzw = v1.xyzw; // same as v1.copy(v2)
+| method | description |
+|--------|-------------|
+| get360angle(VectorA: Vector, VectorB: Vector) | Compute the angle between two Vectors. Both vectors must be of dimension 3 exactly. The returned angle is signed, thus -180º < angle < 180º |
 
-The four basic arithmetic operations can be performed on vector instances or using static methods:
+---------------------------------------------------------------------------------------
 
-    let v1 = new vec4([1, 2, 3, 4]);
-    let v2 = new vec4([5, 6, 7, 8]);
+### Matrices
 
-    let v3 = vec4.product(v1, v2); // returns a new vec4 instance
+Instance methods
 
-    v1.multiply(v2); // writes the result of the multiplication into v1
-    v2.multiply(v1); // writes the result of the multiplication into v2
+| method | description |
+|--------|-------------|
+| at(row: number, col: number) | Get the value of a cell |
+| rows() | Returns matrix rows as an array |
+| cols() | Returns matrix columns as an array |
+| values() | Returns matrix values as a bi-dimentional array |
+| reset()         | Sets all matrix values to 0 |
+| addAColumn()    | Add a new empty column to the Matrix |
+| addARow()       | Add a new empty row to the Matrix |
+| equals(matrix: Matrix)          | Checks equality between two matrices |
+| setAsIdentity() | Fills a squared matrix with the identity values (diagnonal 1) |
+| multiply(matrix: Matrix)        | Multiply two matrices. Returns a new instance. |
+| determinant     | Compute the determinant of the matrix. |
+| getCofactor(row: number, col: number)     | Compute the cofactor of the matrix. Returns a new instance. |
+| transpose()       | Transpose the matrix. Returns a new instance. |
+| inverse()         | Inverse the matrix. Returns a new instance. |
 
-The reason for all of these different ways of doing the same thing is that object allocation in Javascript is slow and dynamic allocation shoud therefore be reduced to a minimum.
+Static methods
 
-For this reason, static methods offer an optional destination parameter:
+| method | description |
+|--------|-------------|
+| identity(dimension: number) | Returns a new squared identity Matrix |
 
-    let v3 = vec3.cross(v1, v2) // allocates a new instance of vec3
+# Contributing
 
-is the same as:
+Any contribution is welcome, whether it is an issue, PullRequest, or just a comment!
 
-    let v3 = new vec3();
-    vec3.cross(v1, v2, v3) // writes into the existing instance
+*Made with love by Florent Catiau-Tristant (@kapcash)*
 
-Matrices do not have swizzle operators. Instead, they provide the all(), row() and col() methods:
-
-    let m = new mat2([1, 2, 3, 4]);
-
-    let all = m.all();  // [1, 2, 3, 4]  
-    let row = m.row(0); // [1, 2]
-    let col = m.col(0); // [1, 3] 
-
+<a href="https://www.buymeacoffee.com/kapcash" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>

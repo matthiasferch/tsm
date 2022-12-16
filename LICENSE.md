@@ -1,10 +1,14 @@
+Copyright (c) 2020 Florent Catiau-Tristant
 Copyright (c) 2012, 2018 Matthias Ferch
 
-Project homepage: https://github.com/matthiasferch/tsm
+Project initiated by Matthias Ferch
+Original library: https://github.com/matthiasferch/tsm
+
+Forked and improved by Florent Catiau-Tristant
+Project homepage: https://github.com/kapcash/tsmatrix
 
 This software is provided 'as-is', without any express or implied
-warranty. In no event will the authors be held liable for any damages
-arising from the use of this software.
+warranty. In no event will the authors be held liable for any damages arising from the use of this software.
 
 Permission is granted to anyone to use this software for any purpose,
 including commercial applications, and to alter it and redistribute it
