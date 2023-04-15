@@ -82,6 +82,37 @@ describe('Matrix class', () => {
       expect(() => matrixA.multiply(matrixB)).toThrowError('Dimension error');
     });
   });
+
+  it.each([
+    [
+      [[1, 2],
+       [3, 4]],
+      5,
+      [-1, -1]
+    ],
+    [
+      [[1, 2],
+       [3, 4]],
+      3,
+      [1, 0]
+    ],
+    [
+      [[-2, -3, -4],
+       [0, -4, 2]],
+      -4,
+      [0, 2]
+    ],
+    [
+      [[0, 1, -2, 3],
+       [1, 5, 5, 5],
+       [4, 4, 4, 4]],
+      4,
+      [2, 0]
+    ]
+  ])('should get the position of value in the vector', (inputMatrix, value, expectedResult) => {
+    const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
+    expect(matrix.indexOf(value)).toEqual(expectedResult);
+  });
   
   describe('determinant', () => {
     it.each([
