@@ -113,6 +113,28 @@ describe('Matrix class', () => {
     const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
     expect(matrix.indexOf(value)).toEqual(expectedResult);
   });
+
+  it.each([
+    [
+      [[1, 2],
+       [3, 4]],
+       '[[1, 2],\n[3, 4]]'
+    ],
+    [
+      [[-2, -3, -4],
+       [0, -4, 2]],
+       '[[-2, -3, -4],\n[0, -4, 2]]'
+    ],
+    [
+      [[0, 1, -2, 3],
+       [1, 5, 5, 5],
+       [4, 4, 4, 4]],
+       '[[0, 1, -2, 3],\n[1, 5, 5, 5],\n[4, 4, 4, 4]]'
+    ]
+  ])('should log matrix', (inputMatrix, expectedResult) => {
+    const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
+    expect(matrix._log()).toEqual(expectedResult);
+  });
   
   describe('determinant', () => {
     it.each([
