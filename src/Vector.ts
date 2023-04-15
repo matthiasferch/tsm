@@ -34,6 +34,18 @@ export default class Vector {
     }
 
     /**
+     * Returns the angle in radians between vector and the receiver.
+     * @param vector The operand vector
+     * @return An angle, between 0 and +π inclusive.
+     */
+    angleFrom(vector: Vector): number {
+      if (this.rows !== vector.rows) throw new Error('To calculate the angle, vectors must have the same dimension!');
+      const dot = this.dot(vector);
+      const cos = dot / (this.length() * vector.length());
+      return Math.acos(cos);
+    }
+
+    /**
      * Get a matrix value, from its position
      * @param row Matrix line, from 0 to `rows`
      */

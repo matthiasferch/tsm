@@ -57,6 +57,25 @@ describe('Vectors.ts', () => {
   });
 
   it.each([
+    [[1, 0, 1], [0, 1, 0], Math.PI / 2],
+    [[1, 0], [1, 1], Math.PI / 4],
+    [[1, 2], [1, 6, 3, 5], null],
+  ])(
+    "should get the angle between vectors",
+    (inputA, inputB, expectedResult) => {
+      const vectorA = new Vector(inputA);
+      const vectorB = new Vector(inputB);
+
+      if (!expectedResult) {
+        expect(() => vectorA.angleFrom(vectorB)).toThrowError();
+      } else {
+        const angle = vectorA.angleFrom(vectorB);
+        expect(Math.round(angle)).eq(Math.round(expectedResult));
+      }
+    }
+  );
+
+  it.each([
     [[1, 1], [2, 2], [3, 3]],
     [[-3, -3], [2, 2], [-1, -1]],
     [[-3, -3], [2, -4], [-1, -7]],
