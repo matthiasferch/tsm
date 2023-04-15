@@ -61,7 +61,7 @@ Instance methods
 | length()        | Returns the vectors length |
 | squaredLength()        | Returns the vectors squared length |
 | add(vector: Vector)     | Adds all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
-| substract(vector: Vector)     | Substracts all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
+| subtract(vector: Vector)     | Subtracts all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
 | multiply(vector: Vector)     | Multiplies all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
 | divide(vector: Vector)     | Divides all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
 | scale(scale: number)     | Multiply all vector values by the given scale. Mutates current instance. |

@@ -34,7 +34,7 @@ export default class Vector {
     }
 
     /**
-     * Returns the angle in radians between vector and the receiver.
+     * Calculates the angle in radians between vector and the receiver.
      * @param vector The operand vector
      * @return An angle, between 0 and +π inclusive.
      */
@@ -43,6 +43,17 @@ export default class Vector {
       const dot = this.dot(vector);
       const cos = dot / (this.length() * vector.length());
       return Math.acos(cos);
+    }
+
+    /**
+     * Calculates the distance between vector and the receiver.
+     * Equivalent to |reciever - vector|
+     * @param vector The operand vector
+     * @return The distance (absolute value) between the two vectors
+     */  
+    distanceFrom(vector: Vector): number {
+      if(this.rows !== vector.rows) throw new Error('To calculate the distance, vectors must have the same dimension!');
+      return this.subtract(vector).length();
     }
 
     /**
@@ -107,12 +118,12 @@ export default class Vector {
     }
 
     /**
-     * Sunstract all vector values with the same position value of the operand vector
+     * subtract all vector values with the same position value of the operand vector
      * @param vector The operand vector
      * @throws Error if the two vectors don't have the same dimension
      * @return a new Vector with the result values
      */
-    substract(vector: Vector): Vector {
+    subtract(vector: Vector): Vector {
         if (this.rows !== vector.rows) throw new Error("Vectors don't have the same dimension!");
         return this.operateOnAllValues((val, i) => (val - vector.at(i)));
     }

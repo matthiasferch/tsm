@@ -70,7 +70,29 @@ describe('Vectors.ts', () => {
         expect(() => vectorA.angleFrom(vectorB)).toThrowError();
       } else {
         const angle = vectorA.angleFrom(vectorB);
-        expect(Math.round(angle)).eq(Math.round(expectedResult));
+        const toThousands = (num: number) => Math.round(num * 1000) / 1000;
+        expect(toThousands(angle)).eq(toThousands(expectedResult));
+      }
+    }
+  );
+  
+  it.each([
+  [[1, 2, 3], [4, 5, 6], 5.196152422706632],
+  [[2, 3], [4, 5], 2.8284271247461903],
+  [[2, 2, 2], [3, 3, 3], 1.732051],
+  [[1, 2], [3, 4, 5], null],
+  ])(
+    "should get the distance between vectors",
+    (inputA, inputB, expectedResult) => {
+      const vectorA = new Vector(inputA);
+      const vectorB = new Vector(inputB);
+
+      if (!expectedResult) {
+        expect(() => vectorA.distanceFrom(vectorB)).toThrowError();
+      } else {
+        const distance = vectorA.distanceFrom(vectorB);
+        const toThousands = (num: number) => Math.round(num * 1000) / 1000;
+        expect(toThousands(distance)).eq(toThousands(expectedResult));
       }
     }
   );
@@ -96,11 +118,11 @@ describe('Vectors.ts', () => {
     [[-3, -3], [-10, 0], [7, -3]],
     [[10, 0], [-10, 0], [20, 0]],
     [[10, 49], [-40, -10], [50, 59]],
-  ])('should substract two vectors', (inputA, inputB, expectedResult) => {
+  ])('should subtract two vectors', (inputA, inputB, expectedResult) => {
     const vectorA = new Vector(inputA);
     const vectorB = new Vector(inputB);
     const vectorRes = new Vector(expectedResult);
-    expect(vectorA.substract(vectorB).equals(vectorRes)).toBeTruthy();
+    expect(vectorA.subtract(vectorB).equals(vectorRes)).toBeTruthy();
   });
 
   it.each([
