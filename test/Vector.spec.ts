@@ -57,6 +57,16 @@ describe('Vectors.ts', () => {
   });
 
   it.each([
+    [[2, 3], 3, 1],
+    [[-2, -3, -4, 0, 1], 0, 3],
+    [[-1, 0, 1, -2, 2], 2, 4],
+    [[-9, 2, 4], -8, -1],
+  ])('should get the position of value in the vector', (inputVector, value, expectedResult) => {
+    const vector = new Vector(inputVector);
+    expect(vector.indexOf(value)).eq(expectedResult);
+  });
+
+  it.each([
     [[1, 0, 1], [0, 1, 0], Math.PI / 2],
     [[1, 0], [1, 1], Math.PI / 4],
     [[1, 2], [1, 6, 3, 5], null],

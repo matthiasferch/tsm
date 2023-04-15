@@ -65,6 +65,15 @@ export default class Vector {
     }
 
     /**
+     * Get the position, from its matrix value
+     * @param value The value to search
+     * @return The position of the value, or -1 if not found
+     */
+    indexOf(value: number): number  {
+      return this.values.indexOf(value);
+    }
+
+    /**
      * Sets all matrix values to 0
      */
     reset(): void {
