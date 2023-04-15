@@ -112,12 +112,28 @@ describe('Vectors.ts', () => {
     [[1, 1], 1],
     [[-3, -1, 2], 2],
     [[1, 2, 4, 8, 16, 32, 64, 128], 128],
+    [[-1, -2, -4, -8, -16, -32, -64, -128], -1],
   ])('should get the maximum value of a vector', (inputA, expectedResult) => {
     const vectorA = new Vector(inputA);
     if (!expectedResult) {
       expect(() => vectorA.max()).toThrowError();
     } else {
       expect(vectorA.max() === (expectedResult)).toBeTruthy();
+    }
+  });
+
+  it.each([
+    [[], null],
+    [[1, 1], 1],
+    [[-3, -1, 2], -3],
+    [[1, 2, 4, 8, 16, 32, 64, 128], 1],
+    [[-1, -2, -4, -8, -16, -32, -64, -128], -128],
+  ])('should get the minimum value of a vector', (inputA, expectedResult) => {
+    const vectorA = new Vector(inputA);
+    if (!expectedResult) {
+      expect(() => vectorA.min()).toThrowError();
+    } else {
+      expect(vectorA.min() === (expectedResult)).toBeTruthy();
     }
   });
 
