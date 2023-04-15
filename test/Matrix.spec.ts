@@ -161,6 +161,32 @@ describe('Matrix class', () => {
       const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
       expect(matrix.max() === (expectedResult)).toBeTruthy();
   });
+
+  it.each([
+    [
+      [[], []],
+       0
+    ],
+    [
+      [[1, 1], [1, 1]],
+      1
+    ],
+    [
+     [[-3, -1, 2], [0, 2, 4]],
+      -3
+    ],
+    [
+      [[1, 2, 4, 8], [16, 32, 64, 128]],
+      1
+    ],
+    [
+      [[-1, -2, -4, -8], [-16, -32, -64, -128]],
+      -128
+    ]
+  ])('should get the minimum value of a vector', (inputMatrix, expectedResult) => {
+      const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
+      expect(matrix.min() === (expectedResult)).toBeTruthy();
+  });
   
   describe('determinant', () => {
     it.each([

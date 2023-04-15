@@ -150,6 +150,15 @@ export default class Matrix {
     }
 
     /**
+     * Computes the minimum value of the matrix
+     * @return The minimum value
+     * @throws Error if the matrix is empty
+     */
+    min(): number {
+      return this.values.reduce((min, row) => Math.min(min, ...row), Infinity);
+    }
+
+    /**
      * Computes the determinant of the matrix
      * @throws Error if the matrix is not squared
      */
