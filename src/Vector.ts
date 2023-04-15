@@ -221,4 +221,6 @@ export default class Vector {
           Va.dot(Vb)
         );
       }
+
+      _log = (): string => '[' + this.values.join(', ') + ']';
 }

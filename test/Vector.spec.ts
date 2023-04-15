@@ -196,4 +196,14 @@ describe('Vectors.ts', () => {
     const vectorRes = new Vector(expectedResult);
     expect(vectorA.cross(vectorB).equals(vectorRes)).toBeTruthy();
   });
+
+  it.each([
+    [[], '[]'],
+    [[8], '[8]'],
+    [[1, 2, 3], '[1, 2, 3]'],
+    [[1, 2, 3, 1, 5, 7], '[1, 2, 3, 1, 5, 7]'],
+  ])('should log vectors', (inputA, expectedResult) => {
+    const vectorA = new Vector(inputA);
+    expect(vectorA._log()).eq(expectedResult);
+  });
 });
