@@ -135,6 +135,32 @@ describe('Matrix class', () => {
     const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
     expect(matrix._log()).toEqual(expectedResult);
   });
+
+  it.each([
+    [
+      [[], []],
+       0
+    ],
+    [
+      [[1, 1], [1, 1]],
+      1
+    ],
+    [
+     [[-3, -1, 2], [0, 2, 4]],
+      4
+    ],
+    [
+      [[1, 2, 4, 8], [16, 32, 64, 128]],
+      128
+    ],
+    [
+      [[-1, -2, -4, -8], [-16, -32, -64, -128]],
+      -1
+    ]
+  ])('should log matrix', (inputMatrix, expectedResult) => {
+      const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
+      expect(matrix.max() === (expectedResult)).toBeTruthy();
+  });
   
   describe('determinant', () => {
     it.each([

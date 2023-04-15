@@ -142,6 +142,14 @@ export default class Matrix {
     }
 
     /**
+     * Computes the maximum value of the matrix
+     * @return The maximum value
+     */
+    max(): number {
+      return this.values.reduce((max, row) => Math.max(max, ...row), -Infinity);
+    }
+
+    /**
      * Computes the determinant of the matrix
      * @throws Error if the matrix is not squared
      */
