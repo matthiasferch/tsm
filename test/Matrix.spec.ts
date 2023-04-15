@@ -157,7 +157,7 @@ describe('Matrix class', () => {
       [[-1, -2, -4, -8], [-16, -32, -64, -128]],
       -1
     ]
-  ])('should log matrix', (inputMatrix, expectedResult) => {
+  ])('should get the maximum value of a vector', (inputMatrix, expectedResult) => {
       const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
       expect(matrix.max() === (expectedResult)).toBeTruthy();
   });
