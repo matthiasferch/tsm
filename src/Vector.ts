@@ -164,6 +164,16 @@ export default class Vector {
     }
 
     /**
+     * Computes the maximum value of the vector
+     * @return The maximum value
+     * @throws Error if the vector is empty
+     */
+    max(): number {
+      if (this.rows === 0) throw new Error('Cannot get the maximum value of an empty vector!');
+      return Math.max(...this.values);
+    }
+
+    /**
      * Multiply all vector values by the given number
      * @param scale The number to multiply with the values
      */
