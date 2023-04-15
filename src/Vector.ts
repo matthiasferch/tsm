@@ -173,7 +173,6 @@ export default class Vector {
       return Math.max(...this.values);
     }
 
-
     /**
      * Computes the minimum value of the vector
      * @return The minimum value
@@ -182,6 +181,16 @@ export default class Vector {
     min(): number {
       if (this.rows === 0) throw new Error('Cannot get the minimum value of an empty vector!');
       return Math.min(...this.values);
+    }
+
+    /**
+     * Rounds all vector values to the nearest integer
+     * @return A new vector with the rounded values
+     * @throws Error if the vector is empty
+     */
+    round(): Vector {
+      if(this.rows === 0) throw new Error('Cannot round an empty vector!');
+      return this.operateOnAllValues((x) => Math.round(x));
     }
 
     /**
