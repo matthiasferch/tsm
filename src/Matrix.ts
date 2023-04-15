@@ -126,12 +126,12 @@ export default class Matrix {
         return resMatrix;
     }
 
-     /**
+    /**
      * Get the position, from its matrix value
      * @param value The value to search
      * @return The position of the value, or -1 if not found
      */
-     indexOf(value: number): [number, number]  {
+    indexOf(value: number): [number, number]  {
       for(let i = 0; i < this.rows; i++) {
         for(let j = 0; j < this.columns; j++) {
           if(this.values[i][j] === value) return [i, j];
