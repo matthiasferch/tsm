@@ -188,6 +188,29 @@ describe('Matrix class', () => {
       expect(matrix.min() === (expectedResult)).toBeTruthy();
   });
 
+  it.each([
+    [
+      [[], []],
+      [[0], [0]],
+    ],
+    [
+      [[1.1, 1.5], [1.5, 1.1]],
+      [[1, 2], [2, 1]]
+    ],
+    [
+     [[-3.123123, 100.99, 2.499], [-0.1, 0.1, 9.9], [-30.49, 99.1, 2]],
+     [[-3, 101, 2], [0, 0, 10], [-30, 99, 2]],
+    ],
+    [
+      [[1.49, 1.5, 1.51], [-1.49, -1.5, -1.51]],
+      [[1, 2, 2], [-1, -1, -2]]
+    ],
+  ])('should round the values of a matrix', (inputMatrix, expectedResult) => {
+      const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
+      const rounded = new Matrix(expectedResult.length, expectedResult[0].length, expectedResult);
+      expect(matrix.round().equals(rounded)).toBeTruthy();
+  });
+
   describe('determinant', () => {
     it.each([
       [

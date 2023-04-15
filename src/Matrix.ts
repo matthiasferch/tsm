@@ -159,6 +159,14 @@ export default class Matrix {
     }
 
     /**
+     * Rounds all matrix values to the nearest integer
+     * @return A new matrix with the rounded values
+     */
+    round(): Matrix {
+      return new Matrix(this.rows, this.columns, this.values.map(row => row.map(val => Math.round(val))));
+    }
+
+    /**
      * Computes the determinant of the matrix
      * @throws Error if the matrix is not squared
      */

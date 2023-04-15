@@ -142,7 +142,7 @@ describe('Vectors.ts', () => {
     [[1.5, 1.1], [2, 1]],
     [[-3.123123, 100.99, 2.499], [-3, 101, 2]],
     [[-1.49, -1.5, -1.51], [-1, -1, -2]],
-  ])('should get the round values of a vector', (inputA, expectedResult) => {
+  ])('should round the values of a vector', (inputA, expectedResult) => {
     const vectorA = new Vector(inputA);
     if (!expectedResult) {
       expect(() => vectorA.round()).toThrowError();
