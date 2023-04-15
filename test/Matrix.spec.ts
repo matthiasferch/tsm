@@ -109,7 +109,7 @@ describe('Matrix class', () => {
       4,
       [2, 0]
     ]
-  ])('should get the position of value in the vector', (inputMatrix, value, expectedResult) => {
+  ])('should get the position of value in the matrix', (inputMatrix, value, expectedResult) => {
     const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
     expect(matrix.indexOf(value)).toEqual(expectedResult);
   });
@@ -157,7 +157,7 @@ describe('Matrix class', () => {
       [[-1, -2, -4, -8], [-16, -32, -64, -128]],
       -1
     ]
-  ])('should get the maximum value of a vector', (inputMatrix, expectedResult) => {
+  ])('should get the maximum value of a matrix', (inputMatrix, expectedResult) => {
       const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
       expect(matrix.max() === (expectedResult)).toBeTruthy();
   });
@@ -183,11 +183,11 @@ describe('Matrix class', () => {
       [[-1, -2, -4, -8], [-16, -32, -64, -128]],
       -128
     ]
-  ])('should get the minimum value of a vector', (inputMatrix, expectedResult) => {
+  ])('should get the minimum value of a matrix', (inputMatrix, expectedResult) => {
       const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
       expect(matrix.min() === (expectedResult)).toBeTruthy();
   });
-  
+
   describe('determinant', () => {
     it.each([
       [
