@@ -8,8 +8,6 @@ The library's design is influenced by both [gl-matrix](https://github.com/toji/g
 What's special about tsm?
 -------------------------
 
-- tsm makes use of Typescript's type annotations to reduce the number of possible bugs.
-
 - tsm makes use of Javascript's new property definitions to enable GLSL-style swizzle operators:
 
         let v1 = new vec2();
@@ -61,7 +59,7 @@ The four basic arithmetic operations can be performed on vector instances or usi
     v1.multiply(v2); // writes the result of the multiplication into v1
     v2.multiply(v1); // writes the result of the multiplication into v2
 
-The reason for all of these different ways of doing the same thing is that object allocation in Javascript is slow and dynamic allocation shoud therefore be reduced to a minimum.
+The reason for all of these different ways of doing the same thing is that object allocation in Javascript is slow and dynamic allocation should therefore be reduced to a minimum.
 
 For this reason, static methods offer an optional destination parameter:
 
