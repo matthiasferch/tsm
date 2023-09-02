@@ -6,9 +6,10 @@
         "./test/**/*.spec.ts"
     ],
     "compilerOptions": {
+        "declaration": true,
         "outDir": "./dist/",
         "module": "commonjs",
         "target": "es5",
-        "sourceMap": true,
+        "sourceMap": true
     }
 }
