@@ -1,6 +1,6 @@
 {
   "name": "ts-matrix",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "A Vector and Matrix math utility library.",
   "author": "Florent Catiau-Tristant",
   "main": "./dist/ts-matrix.umd.js",
