@@ -82,7 +82,135 @@ describe('Matrix class', () => {
       expect(() => matrixA.multiply(matrixB)).toThrowError('Dimension error');
     });
   });
-  
+
+  it.each([
+    [
+      [[1, 2],
+       [3, 4]],
+      5,
+      [-1, -1]
+    ],
+    [
+      [[1, 2],
+       [3, 4]],
+      3,
+      [1, 0]
+    ],
+    [
+      [[-2, -3, -4],
+       [0, -4, 2]],
+      -4,
+      [0, 2]
+    ],
+    [
+      [[0, 1, -2, 3],
+       [1, 5, 5, 5],
+       [4, 4, 4, 4]],
+      4,
+      [2, 0]
+    ]
+  ])('should get the position of value in the matrix', (inputMatrix, value, expectedResult) => {
+    const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
+    expect(matrix.indexOf(value)).toEqual(expectedResult);
+  });
+
+  it.each([
+    [
+      [[1, 2],
+       [3, 4]],
+       '[[1, 2],\n[3, 4]]'
+    ],
+    [
+      [[-2, -3, -4],
+       [0, -4, 2]],
+       '[[-2, -3, -4],\n[0, -4, 2]]'
+    ],
+    [
+      [[0, 1, -2, 3],
+       [1, 5, 5, 5],
+       [4, 4, 4, 4]],
+       '[[0, 1, -2, 3],\n[1, 5, 5, 5],\n[4, 4, 4, 4]]'
+    ]
+  ])('should log matrix', (inputMatrix, expectedResult) => {
+    const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
+    expect(matrix.toString()).toEqual(expectedResult);
+  });
+
+  it.each([
+    [
+      [[], []],
+       0
+    ],
+    [
+      [[1, 1], [1, 1]],
+      1
+    ],
+    [
+     [[-3, -1, 2], [0, 2, 4]],
+      4
+    ],
+    [
+      [[1, 2, 4, 8], [16, 32, 64, 128]],
+      128
+    ],
+    [
+      [[-1, -2, -4, -8], [-16, -32, -64, -128]],
+      -1
+    ]
+  ])('should get the maximum value of a matrix', (inputMatrix, expectedResult) => {
+      const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
+      expect(matrix.max() === (expectedResult)).toBeTruthy();
+  });
+
+  it.each([
+    [
+      [[], []],
+       0
+    ],
+    [
+      [[1, 1], [1, 1]],
+      1
+    ],
+    [
+     [[-3, -1, 2], [0, 2, 4]],
+      -3
+    ],
+    [
+      [[1, 2, 4, 8], [16, 32, 64, 128]],
+      1
+    ],
+    [
+      [[-1, -2, -4, -8], [-16, -32, -64, -128]],
+      -128
+    ]
+  ])('should get the minimum value of a matrix', (inputMatrix, expectedResult) => {
+      const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
+      expect(matrix.min() === (expectedResult)).toBeTruthy();
+  });
+
+  it.each([
+    [
+      [[], []],
+      [[0], [0]],
+    ],
+    [
+      [[1.1, 1.5], [1.5, 1.1]],
+      [[1, 2], [2, 1]]
+    ],
+    [
+     [[-3.123123, 100.99, 2.499], [-0.1, 0.1, 9.9], [-30.49, 99.1, 2]],
+     [[-3, 101, 2], [0, 0, 10], [-30, 99, 2]],
+    ],
+    [
+      [[1.49, 1.5, 1.51], [-1.49, -1.5, -1.51]],
+      [[1, 2, 2], [-1, -1, -2]]
+    ],
+  ])('should round the values of a matrix', (inputMatrix, expectedResult) => {
+      const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
+      const rounded = new Matrix(expectedResult.length, expectedResult[0].length, expectedResult);
+      expect(matrix.round().equals(rounded)).toBeTruthy();
+  });
+
   describe('determinant', () => {
     it.each([
       [

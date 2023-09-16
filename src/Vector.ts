@@ -34,11 +34,43 @@ export default class Vector {
     }
 
     /**
+     * Calculates the angle in radians between vector and the receiver.
+     * @param vector The operand vector
+     * @return An angle, between 0 and +π inclusive.
+     */
+    angleFrom(vector: Vector): number {
+      if (this.rows !== vector.rows) throw new Error('To calculate the angle, vectors must have the same dimension!');
+      const dot = this.dot(vector);
+      const cos = dot / (this.length() * vector.length());
+      return Math.acos(cos);
+    }
+
+    /**
+     * Calculates the distance between vector and the receiver.
+     * Equivalent to |receiver - vector|
+     * @param vector The operand vector
+     * @return The distance (absolute value) between the two vectors
+     */  
+    distanceFrom(vector: Vector): number {
+      if(this.rows !== vector.rows) throw new Error('To calculate the distance, vectors must have the same dimension!');
+      return this.subtract(vector).length();
+    }
+
+    /**
      * Get a matrix value, from its position
      * @param row Matrix line, from 0 to `rows`
      */
     at(row: number): number {
         return this.values[row];
+    }
+
+    /**
+     * Get the position, from its matrix value
+     * @param value The value to search
+     * @return The position of the value, or -1 if not found
+     */
+    indexOf(value: number): number  {
+      return this.values.indexOf(value);
     }
 
     /**
@@ -95,12 +127,12 @@ export default class Vector {
     }
 
     /**
-     * Sunstract all vector values with the same position value of the operand vector
+     * subtract all vector values with the same position value of the operand vector
      * @param vector The operand vector
      * @throws Error if the two vectors don't have the same dimension
      * @return a new Vector with the result values
      */
-    substract(vector: Vector): Vector {
+    subtract(vector: Vector): Vector {
         if (this.rows !== vector.rows) throw new Error("Vectors don't have the same dimension!");
         return this.operateOnAllValues((val, i) => (val - vector.at(i)));
     }
@@ -129,6 +161,36 @@ export default class Vector {
             if (vector.at(i) === 0) return val;
             return (val / vector.at(i));
         });
+    }
+
+    /**
+     * Computes the maximum value of the vector
+     * @return The maximum value
+     * @throws Error if the vector is empty
+     */
+    max(): number {
+      if (this.rows === 0) throw new Error('Cannot get the maximum value of an empty vector!');
+      return Math.max(...this.values);
+    }
+
+    /**
+     * Computes the minimum value of the vector
+     * @return The minimum value
+     * @throws Error if the vector is empty
+     */
+    min(): number {
+      if (this.rows === 0) throw new Error('Cannot get the minimum value of an empty vector!');
+      return Math.min(...this.values);
+    }
+
+    /**
+     * Rounds all vector values to the nearest integer
+     * @return A new vector with the rounded values
+     * @throws Error if the vector is empty
+     */
+    round(): Vector {
+      if(this.rows === 0) throw new Error('Cannot round an empty vector!');
+      return this.operateOnAllValues((x) => Math.round(x));
     }
 
     /**
@@ -188,5 +250,9 @@ export default class Vector {
           Vb.cross(Va).dot(new Vector([0, 0, 1]).normalize()),
           Va.dot(Vb)
         );
-      }
+    }
+
+    toString(): string {
+        return `[${this.values.join(', ')}]`;
+    }
 }

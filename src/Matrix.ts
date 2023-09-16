@@ -127,6 +127,46 @@ export default class Matrix {
     }
 
     /**
+     * Get the position, from its matrix value
+     * @param value The value to search
+     * @return The position of the value, or -1 if not found
+     */
+    indexOf(value: number): [number, number]  {
+      for(let i = 0; i < this.rows; i++) {
+        for(let j = 0; j < this.columns; j++) {
+          if(this.values[i][j] === value) return [i, j];
+        }
+      }
+
+      return [-1, -1];
+    }
+
+    /**
+     * Computes the maximum value of the matrix
+     * @return The maximum value
+     */
+    max(): number {
+      return this.values.reduce((max, row) => Math.max(max, ...row), -Infinity);
+    }
+
+    /**
+     * Computes the minimum value of the matrix
+     * @return The minimum value
+     * @throws Error if the matrix is empty
+     */
+    min(): number {
+      return this.values.reduce((min, row) => Math.min(min, ...row), Infinity);
+    }
+
+    /**
+     * Rounds all matrix values to the nearest integer
+     * @return A new matrix with the rounded values
+     */
+    round(): Matrix {
+      return new Matrix(this.rows, this.columns, this.values.map(row => row.map(val => Math.round(val))));
+    }
+
+    /**
      * Computes the determinant of the matrix
      * @throws Error if the matrix is not squared
      */
@@ -191,4 +231,7 @@ export default class Matrix {
             this.values.map((row, i) => row.map((val, j) => transposedCofactor.at(i, j) / det)));
     }
 
+    toString(): string {
+        return `[${this.values.map(row => `[${row.join(', ')}]`).join(',\n')}]`;
+    }
 }
