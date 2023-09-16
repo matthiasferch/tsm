@@ -47,7 +47,7 @@ export default class Vector {
 
     /**
      * Calculates the distance between vector and the receiver.
-     * Equivalent to |reciever - vector|
+     * Equivalent to |receiver - vector|
      * @param vector The operand vector
      * @return The distance (absolute value) between the two vectors
      */  
@@ -250,7 +250,9 @@ export default class Vector {
           Vb.cross(Va).dot(new Vector([0, 0, 1]).normalize()),
           Va.dot(Vb)
         );
-      }
+    }
 
-      _log = (): string => '[' + this.values.join(', ') + ']';
+    toString(): string {
+        return `[${this.values.join(', ')}]`;
+    }
 }

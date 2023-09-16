@@ -133,7 +133,7 @@ describe('Matrix class', () => {
     ]
   ])('should log matrix', (inputMatrix, expectedResult) => {
     const matrix = new Matrix(inputMatrix.length, inputMatrix[0].length, inputMatrix);
-    expect(matrix._log()).toEqual(expectedResult);
+    expect(matrix.toString()).toEqual(expectedResult);
   });
 
   it.each([

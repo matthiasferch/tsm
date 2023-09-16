@@ -231,7 +231,7 @@ export default class Matrix {
             this.values.map((row, i) => row.map((val, j) => transposedCofactor.at(i, j) / det)));
     }
 
-    _log(): string {
-        return '[' + this.values.map(row => `[${row.join(', ')}]`).join(',\n') + ']';
+    toString(): string {
+        return `[${this.values.map(row => `[${row.join(', ')}]`).join(',\n')}]`;
     }
 }

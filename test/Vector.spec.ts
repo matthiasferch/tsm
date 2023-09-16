@@ -249,6 +249,6 @@ describe('Vectors.ts', () => {
     [[1, 2, 3, 1, 5, 7], '[1, 2, 3, 1, 5, 7]'],
   ])('should log vectors', (inputA, expectedResult) => {
     const vectorA = new Vector(inputA);
-    expect(vectorA._log()).eq(expectedResult);
+    expect(vectorA.toString()).eq(expectedResult);
   });
 });
