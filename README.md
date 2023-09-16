@@ -53,22 +53,30 @@ Instance methods
 | at(row: number) | Get the value of a cell |
 | rows() | Returns Vector's size |
 | values() | Returns Vector values as an array |
-| reset()         | Sets all matrix values to 0 |
-| addAValue()     | Add a new 0 to the Vector |
-| addARow()       | Add a new empty row to the Matrix |
-| equals(vector: Vector)          | Checks equality between two vectors |
+| indexOf(value: number) | Returns the index of the value within the Vector, or -1 if it's not found. |
+| reset() | Sets all matrix values to 0 |
+| addAValue() | Add a new 0 to the Vector |
+| addARow() | Add a new empty row to the Matrix |
+| equals(vector: Vector) | Checks equality between two vectors |
 | negate() | Negates the Vector (change all cells arithmetic sign). Returns a new instance. |
-| length()        | Returns the vectors length |
-| squaredLength()        | Returns the vectors squared length |
-| add(vector: Vector)     | Adds all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
-| subtract(vector: Vector)     | Subtracts all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
-| multiply(vector: Vector)     | Multiplies all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
-| divide(vector: Vector)     | Divides all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
-| scale(scale: number)     | Multiply all vector values by the given scale. Mutates current instance. |
-| normalize(scale: number)     | Computes the normalized Vector. Mutates current instance. |
-| dot(vector: Vector)     | Computes the dot product between two Vectors. |
-| cross(vector: Vector)     | Computes the cross product between two Vectors. Returns new instance |
-| mix(vector: Vector, time: number)     | Computes the mix product between two Vectors. Returns new instance |
+| length() | Returns the vectors length |
+| squaredLength() | Returns the vectors squared length |
+| add(vector: Vector) | Adds all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
+| subtract(vector: Vector) | Subtracts all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
+| multiply(vector: Vector) | Multiplies all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
+| divide(vector: Vector) | Divides all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
+| scale(scale: number) | Multiply all vector values by the given scale. Mutates current instance. |
+| normalize(scale: number) | Computes the normalized Vector. Mutates current instance. |
+| dot(vector: Vector) | Computes the dot product between two Vectors. |
+| cross(vector: Vector) | Computes the cross product between two Vectors. Returns new instance |
+| mix(vector: Vector, time: number) | Computes the mix product between two Vectors. Returns new instance |
+| angleFrom(vector: Vector) | Returns the angle between two Vectors between 0 and +π inclusive |
+| distanceFrom(vector: Vector) | Returns the distance (absolute value) between two Vectors |
+| min() | Returns the lowest value from the Vector |
+| max() | Returns the highest value from the Vector |
+| round() | Rounds all vector values to the nearest integer |
+| toString() | Returns a visual representation of the Vector as a string |
+
 
 Static methods
 
@@ -85,9 +93,10 @@ Instance methods
 | method | description |
 |--------|-------------|
 | at(row: number, col: number) | Get the value of a cell |
-| rows() | Returns matrix rows as an array |
-| cols() | Returns matrix columns as an array |
+| rows() | Returns the number of rows |
+| cols() | Returns the number of columns |
 | values() | Returns matrix values as a bi-dimentional array |
+| indexOf(value: number) | Returns the position - as a tuple - of the value within the Matrix, or [-1, -1] if it's not found. |
 | reset()         | Sets all matrix values to 0 |
 | addAColumn()    | Add a new empty column to the Matrix |
 | addARow()       | Add a new empty row to the Matrix |
@@ -98,6 +107,10 @@ Instance methods
 | getCofactor(row: number, col: number)     | Compute the cofactor of the matrix. Returns a new instance. |
 | transpose()       | Transpose the matrix. Returns a new instance. |
 | inverse()         | Inverse the matrix. Returns a new instance. |
+| min() | Returns the lowest value from the Matrix |
+| max() | Returns the highest value from the Matrix |
+| round() | Rounds all matrix values to the nearest integer |
+| toString()     | Returns a visual representation of the Matrix as a string |
 
 Static methods
 

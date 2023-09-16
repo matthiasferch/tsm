@@ -18,13 +18,13 @@ export default class Matrix {
         }
     }
 
-    get rows() {
+    get rows(): number {
         return this._rows;
     }
-    get columns() {
+    get columns(): number {
         return this._columns;
     }
-    get values() {
+    get values(): number[][] {
         return this._values;
     }
 
