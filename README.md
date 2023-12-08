@@ -61,12 +61,12 @@ Instance methods
 | negate() | Negates the Vector (change all cells arithmetic sign). Returns a new instance. |
 | length() | Returns the vectors length |
 | squaredLength() | Returns the vectors squared length |
-| add(vector: Vector) | Adds all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
-| subtract(vector: Vector) | Subtracts all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
-| multiply(vector: Vector) | Multiplies all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
-| divide(vector: Vector) | Divides all given values to the current Vector instance. Both vectors must have the same dimension. Mutates current instance. |
-| scale(scale: number) | Multiply all vector values by the given scale. Mutates current instance. |
-| normalize(scale: number) | Computes the normalized Vector. Mutates current instance. |
+| add(vector: Vector) | Adds all given values to the current Vector instance. Both vectors must have the same dimension. |
+| subtract(vector: Vector) | Subtracts all given values to the current Vector instance. Both vectors must have the same dimension. |
+| multiply(vector: Vector) | Multiplies all given values to the current Vector instance. Both vectors must have the same dimension. |
+| divide(vector: Vector) | Divides all given values to the current Vector instance. Both vectors must have the same dimension. |
+| scale(scale: number) | Multiply all vector values by the given scale. |
+| normalize(scale: number) | Computes the normalized Vector. |
 | dot(vector: Vector) | Computes the dot product between two Vectors. |
 | cross(vector: Vector) | Computes the cross product between two Vectors. Returns new instance |
 | mix(vector: Vector, time: number) | Computes the mix product between two Vectors. Returns new instance |
