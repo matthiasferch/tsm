@@ -5,15 +5,25 @@
   "author": "Florent Catiau-Tristant",
   "main": "./dist/ts-matrix.umd.js",
   "module": "./dist/ts-matrix.mjs",
+  "types": "./lib/ts-matrix.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/ts-matrix.d.ts",
+      "import": "./dist/ts-matrix.mjs",
+      "require": "./dist/ts-matrix.umd.js",
+      "default": "./dist/ts-matrix.mjs"
+    }
+  },
+  "sideEffects": false,
   "homepage": "https://github.com/Kapcash/ts-matrix#readme",
   "bugs": {
     "url": "https://github.com/Kapcash/ts-matrix/issues"
   },
   "typings": "lib/ts-matrix.d.ts",
   "scripts": {
-    "lint": "eslint --fix src/*.ts",
+    "lint": "eslint --fix src/*.ts test/*.ts",
     "build": "tsc --project tsconfig.build.json && vite build",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
   },

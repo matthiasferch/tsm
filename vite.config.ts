@@ -11,7 +11,7 @@ export default defineConfig({
       entry: path.resolve(__dirname, 'src/ts-matrix.ts'),
       name: 'TsMatrix',
       formats: ['es', 'umd'],
-      fileName: (format) => `ts-matrix.${format}.js`,
+      fileName: (format) => (format === 'es' ? 'ts-matrix.mjs' : 'ts-matrix.umd.js'),
     },
     rollupOptions: {
       external: [],
